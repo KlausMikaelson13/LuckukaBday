@@ -2,112 +2,97 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Happy Birthday Pawan 🌬️</title>
+<title>Happy Birthday 🌬️</title>
 
+<!-- Heavitas Font (local file expected) -->
 <style>
+@font-face {
+  font-family: 'Heavitas';
+  src: url('Heavitas.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 /* RESET */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
 }
 
 /* BODY */
 body {
   height: 100vh;
-  background: linear-gradient(to bottom, #ffdde1, #ee9ca7);
+  background: url('luckybeach.jpg') no-repeat center center/cover;
   overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
-  text-align: center;
 }
 
-/* INTRO CARD */
-.intro-card {
-  background: rgba(255,255,255,0.92);
-  width: 90%;
-  max-width: 420px;
-  padding: 35px 25px;
-  border-radius: 22px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.25);
-  animation: fadeInUp 1.2s ease forwards;
-}
-
-.intro-card h1 {
-  color: #b30059;
-  font-size: 2.3rem;
-}
-
-.intro-card h2 {
-  color: #ff4d88;
-  margin: 10px 0 15px;
-  font-weight: 500;
-}
-
-.intro-card p {
-  color: #4d0026;
-  line-height: 1.6;
-  font-size: 1.05rem;
-}
-
-/* SHAYARI */
-.shayari {
-  margin-top: 20px;
-  font-style: italic;
-}
-
-/* BUTTON */
-.btn {
-  margin-top: 25px;
-  padding: 12px 30px;
-  border-radius: 30px;
-  border: none;
-  background: linear-gradient(45deg, #ff4d88, #e6005c);
-  color: white;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: 0.4s ease;
-}
-
-.btn:hover {
-  transform: scale(1.08);
-}
-
-/* 🌬️ WIND FLOWERS */
-.flower {
+/* DARK OVERLAY (cinematic) */
+body::before {
+  content: "";
   position: absolute;
-  top: -50px;
-  pointer-events: none;
-  opacity: 0.9;
-  animation: fallWind linear infinite;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(0,0,0,0.35),
+    rgba(0,0,0,0.1),
+    rgba(0,0,0,0.35)
+  );
+  z-index: 1;
 }
 
-@keyframes fallWind {
-  0%   { transform: translateX(0) translateY(-50px) rotate(0deg); }
-  25%  { transform: translateX(30px) translateY(25vh) rotate(90deg); }
-  50%  { transform: translateX(-40px) translateY(50vh) rotate(180deg); }
-  75%  { transform: translateX(20px) translateY(75vh) rotate(270deg); }
-  100% { transform: translateX(-30px) translateY(110vh) rotate(360deg); }
+/* 🌬️ WIND LAYERS */
+.wind {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    -10deg,
+    rgba(255,255,255,0.04) 0px,
+    rgba(255,255,255,0.02) 40px,
+    transparent 80px
+  );
+  animation: windMove 12s linear infinite;
+  z-index: 2;
 }
 
-/* ANIMATIONS */
-@keyframes fadeInUp {
+@keyframes windMove {
   from {
-    opacity: 0;
-    transform: translateY(40px);
+    background-position: 0 0;
   }
   to {
-    opacity: 1;
-    transform: translateY(0);
+    background-position: 1000px 0;
   }
 }
 
-/* RESPONSIVE */
-@media (max-width: 480px) {
-  .intro-card h1 {
-    font-size: 2rem;
+/* TEXT */
+.text {
+  position: relative;
+  z-index: 3;
+  font-family: 'Heavitas', sans-serif;
+  color: white;
+  font-size: 3rem;
+  letter-spacing: 2px;
+  text-align: center;
+  text-transform: uppercase;
+  text-shadow: 0 10px 30px rgba(0,0,0,0.6);
+  animation: textFloat 4s ease-in-out infinite;
+}
+
+/* TEXT FLOAT (wind feel) */
+@keyframes textFloat {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-12px); }
+  100% { transform: translateY(0); }
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+  .text {
+    font-size: 1.9rem;
+    padding: 0 20px;
   }
 }
 </style>
@@ -115,40 +100,11 @@ body {
 
 <body>
 
-<div class="intro-card">
-  <h1>🎉 Happy Birthday 🎉</h1>
-  <h2>PAWAN 🌬️</h2>
+<div class="wind"></div>
 
-  <p class="shayari">
-    Tumhara naam hi PAWAN hai,<br>
-    aur tumhari maujoodgi bhi hawa si hai 💨<br>
-    Na dikhti ho, na roki ja sakti ho,<br>
-    par jab paas hoti ho,<br>
-    toh saans lena aasaan ho jaata hai 🌸
-  </p>
-
-  <button class="btn">Your surprise awaits 🎁</button>
+<div class="text">
+  Are you ready for your gift?
 </div>
-
-<script>
-const flowers = ["🌹","🌸","💐","🌺","🌷"];
-
-setInterval(() => {
-  const flower = document.createElement("div");
-  flower.className = "flower";
-  flower.innerText = flowers[Math.floor(Math.random() * flowers.length)];
-
-  flower.style.left = Math.random() * 100 + "vw";
-  flower.style.fontSize = (20 + Math.random() * 12) + "px";
-
-  const duration = 5 + Math.random() * 6;
-  flower.style.animationDuration = duration + "s";
-
-  document.body.appendChild(flower);
-
-  setTimeout(() => flower.remove(), duration * 1000);
-}, 250);
-</script>
 
 </body>
 </html>
