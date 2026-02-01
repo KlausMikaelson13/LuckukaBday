@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Happy Birthday 💖</title>
+<title>Happy Birthday Pawan 🌬️</title>
 
 <style>
-/* 🌸 RESET */
+/* RESET */
 * {
   margin: 0;
   padding: 0;
@@ -13,7 +13,7 @@
   font-family: 'Poppins', sans-serif;
 }
 
-/* 🌈 BODY */
+/* BODY */
 body {
   height: 100vh;
   background: linear-gradient(to bottom, #ffdde1, #ee9ca7);
@@ -24,9 +24,9 @@ body {
   text-align: center;
 }
 
-/* 💖 INTRO CARD */
+/* INTRO CARD */
 .intro-card {
-  background: rgba(255, 255, 255, 0.92);
+  background: rgba(255,255,255,0.92);
   width: 90%;
   max-width: 420px;
   padding: 35px 25px;
@@ -37,26 +37,30 @@ body {
 
 .intro-card h1 {
   color: #b30059;
-  font-size: 2.4rem;
-  margin-bottom: 10px;
+  font-size: 2.3rem;
 }
 
 .intro-card h2 {
   color: #ff4d88;
-  font-size: 1.4rem;
-  margin-bottom: 15px;
+  margin: 10px 0 15px;
   font-weight: 500;
 }
 
 .intro-card p {
   color: #4d0026;
-  font-size: 1.05rem;
   line-height: 1.6;
-  margin-bottom: 20px;
+  font-size: 1.05rem;
 }
 
-/* 🎁 BUTTON */
+/* SHAYARI */
+.shayari {
+  margin-top: 20px;
+  font-style: italic;
+}
+
+/* BUTTON */
 .btn {
+  margin-top: 25px;
   padding: 12px 30px;
   border-radius: 30px;
   border: none;
@@ -69,27 +73,26 @@ body {
 
 .btn:hover {
   transform: scale(1.08);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
 }
 
-/* 🌹 FALLING FLOWERS */
+/* 🌬️ WIND FLOWERS */
 .flower {
   position: absolute;
   top: -50px;
-  font-size: 26px;
-  animation: fall linear infinite;
   pointer-events: none;
   opacity: 0.9;
+  animation: fallWind linear infinite;
 }
 
-/* 🌧️ FLOWER FALL ANIMATION */
-@keyframes fall {
-  to {
-    transform: translateY(110vh) rotate(360deg);
-  }
+@keyframes fallWind {
+  0%   { transform: translateX(0) translateY(-50px) rotate(0deg); }
+  25%  { transform: translateX(30px) translateY(25vh) rotate(90deg); }
+  50%  { transform: translateX(-40px) translateY(50vh) rotate(180deg); }
+  75%  { transform: translateX(20px) translateY(75vh) rotate(270deg); }
+  100% { transform: translateX(-30px) translateY(110vh) rotate(360deg); }
 }
 
-/* ✨ CARD ENTRANCE */
+/* ANIMATIONS */
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -101,48 +104,50 @@ body {
   }
 }
 
-/* 📱 RESPONSIVE */
+/* RESPONSIVE */
 @media (max-width: 480px) {
   .intro-card h1 {
     font-size: 2rem;
   }
-  .intro-card h2 {
-    font-size: 1.2rem;
-  }
 }
 </style>
-
 </head>
+
 <body>
 
 <div class="intro-card">
   <h1>🎉 Happy Birthday 🎉</h1>
-  <h2>My Best Friend 💖</h2>
-  <p>
-    Today isn’t just your birthday.<br>
-    It’s a reminder of how special you are to me.<br><br>
-    This page is small…<br>
-    but what you mean to my life is huge ✨
+  <h2>PAWAN 🌬️</h2>
+
+  <p class="shayari">
+    Tumhara naam hi PAWAN hai,<br>
+    aur tumhari maujoodgi bhi hawa si hai 💨<br>
+    Na dikhti ho, na roki ja sakti ho,<br>
+    par jab paas hoti ho,<br>
+    toh saans lena aasaan ho jaata hai 🌸
   </p>
+
   <button class="btn">Your surprise awaits 🎁</button>
 </div>
 
 <script>
-/* 🌸 FLOWER RAIN */
-const flowers = ["🌹", "🌸", "💐", "🌺", "🌷"];
+const flowers = ["🌹","🌸","💐","🌺","🌷"];
 
 setInterval(() => {
   const flower = document.createElement("div");
   flower.className = "flower";
   flower.innerText = flowers[Math.floor(Math.random() * flowers.length)];
+
   flower.style.left = Math.random() * 100 + "vw";
-  flower.style.animationDuration = (3 + Math.random() * 5) + "s";
+  flower.style.fontSize = (20 + Math.random() * 12) + "px";
+
+  const duration = 5 + Math.random() * 6;
+  flower.style.animationDuration = duration + "s";
+
   document.body.appendChild(flower);
 
-  setTimeout(() => {
-    flower.remove();
-  }, 8000);
-}, 300);
+  setTimeout(() => flower.remove(), duration * 1000);
+}, 250);
 </script>
 
 </body>
