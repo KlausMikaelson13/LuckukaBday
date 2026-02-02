@@ -20,24 +20,34 @@
 /* BODY */
 body {
   height: 100vh;
-  background: url('luckybeach.jpg') no-repeat center center/cover;
   overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
+  background: black;
 }
 
-/* OVERLAY */
-body::before {
-  content: "";
+/* 🎥 VIDEO BACKGROUND */
+video.bg-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  min-height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+/* DARK OVERLAY */
+.overlay {
   position: absolute;
   inset: 0;
   background: rgba(0,0,0,0.35);
   z-index: 1;
 }
 
-/* WIND EFFECT */
+/* 🌬️ WIND EFFECT */
 .wind {
   position: absolute;
   inset: 0;
@@ -68,20 +78,21 @@ body::before {
 .content h1 {
   font-size: 3rem;
   margin-bottom: 40px;
-  text-shadow: 0 10px 30px rgba(0,0,0,0.7);
+  letter-spacing: 2px;
+  text-shadow: 0 10px 30px rgba(0,0,0,0.8);
 }
 
 /* BUTTONS */
 .buttons {
   display: flex;
-  gap: 40px;
+  gap: 50px;
   justify-content: center;
 }
 
 button {
   font-family: 'Heavitas', sans-serif;
   font-size: 1.1rem;
-  padding: 14px 36px;
+  padding: 14px 40px;
   border-radius: 40px;
   border: none;
   cursor: pointer;
@@ -119,6 +130,12 @@ button {
 
 <body>
 
+<!-- 🎥 BACKGROUND VIDEO -->
+<video class="bg-video" autoplay muted loop playsinline>
+  <source src="luckyvid7.mp4" type="video/mp4">
+</video>
+
+<div class="overlay"></div>
 <div class="wind"></div>
 
 <div class="content">
@@ -137,16 +154,16 @@ function goNext() {
 
 const noBtn = document.getElementById("noBtn");
 
-noBtn.addEventListener("mouseenter", moveButton);
-noBtn.addEventListener("touchstart", moveButton);
-
 function moveButton() {
-  const x = Math.random() * (window.innerWidth - 100);
-  const y = Math.random() * (window.innerHeight - 60);
+  const x = Math.random() * (window.innerWidth - 120);
+  const y = Math.random() * (window.innerHeight - 80);
 
   noBtn.style.left = x + "px";
   noBtn.style.top = y + "px";
 }
+
+noBtn.addEventListener("mouseenter", moveButton);
+noBtn.addEventListener("touchstart", moveButton);
 </script>
 
 </body>
