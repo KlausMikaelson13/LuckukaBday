@@ -1,191 +1,179 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hey Birthday Girl 🎉</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>For You 💖</title>
 
 <style>
-/* RESET */
+:root {
+  --pink: #ff6fae;
+  --soft-pink: #ffe4f0;
+  --dark: #2b2b2b;
+}
+
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
 }
 
-/* BODY */
 body {
+  margin: 0;
   height: 100vh;
   overflow: hidden;
-  background: radial-gradient(circle at top, #ffd6e8, #ff9dbb);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  color: #4a0033;
+  background: linear-gradient(135deg, #ffe4f0, #fff);
 }
 
-/* CONTAINER */
+/* Floating Hearts */
+.heart {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  background: var(--pink);
+  transform: rotate(45deg);
+  animation: float 10s linear infinite;
+  opacity: 0.4;
+}
+
+.heart::before,
+.heart::after {
+  content: '';
+  width: 14px;
+  height: 14px;
+  background: var(--pink);
+  border-radius: 50%;
+  position: absolute;
+}
+
+.heart::before {
+  top: -7px;
+  left: 0;
+}
+
+.heart::after {
+  left: -7px;
+  top: 0;
+}
+
+@keyframes float {
+  0% { transform: translateY(100vh) rotate(45deg); }
+  100% { transform: translateY(-10vh) rotate(45deg); }
+}
+
+/* Center Container */
 .container {
-  position: relative;
-  z-index: 2;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
   padding: 20px;
 }
 
-/* MAIN TEXT */
+/* Countdown */
+#countdown {
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: var(--dark);
+}
+
+/* Welcome Screen */
+#welcome {
+  display: none;
+  animation: fadeIn 1.5s ease forwards;
+}
+
 h1 {
-  font-size: clamp(2.2rem, 5vw, 3.2rem);
-  margin-bottom: 12px;
+  font-size: 3rem;
+  color: var(--dark);
+  margin-bottom: 10px;
 }
 
 p {
-  font-size: clamp(1rem, 2.5vw, 1.2rem);
-  max-width: 420px;
-  margin: 0 auto 28px;
-  line-height: 1.6;
+  font-size: 1.2rem;
+  color: #555;
+  margin-bottom: 30px;
 }
 
-/* COUNTDOWN */
-.countdown {
-  display: flex;
-  gap: 16px;
-  justify-content: center;
-  margin-bottom: 40px;
-}
-
-.time-box {
-  background: rgba(255, 255, 255, 0.5);
-  backdrop-filter: blur(6px);
-  border-radius: 14px;
-  padding: 10px 14px;
-  min-width: 70px;
-}
-
-.time-box span {
-  display: block;
-  font-size: 1.4rem;
-  font-weight: 600;
-}
-
-.time-box small {
-  font-size: 0.75rem;
-  opacity: 0.8;
-}
-
-/* BUTTON */
-.enter-btn {
-  padding: 14px 42px;
+/* Button */
+button {
+  padding: 14px 36px;
   font-size: 1.1rem;
-  border-radius: 50px;
   border: none;
-  background: linear-gradient(135deg, #ff4f8b, #ff85a2);
+  border-radius: 40px;
+  background: var(--pink);
   color: white;
   cursor: pointer;
-  transition: all 0.35s ease;
-  box-shadow: 0 12px 30px rgba(255, 79, 139, 0.4);
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 20px rgba(255,111,174,0.3);
 }
 
-.enter-btn:hover {
-  transform: translateY(-4px) scale(1.05);
-  box-shadow: 0 18px 40px rgba(255, 79, 139, 0.6);
+button:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 15px 25px rgba(255,111,174,0.45);
 }
 
-/* FLOATING HEARTS / SPARKLES */
-.floating {
-  position: absolute;
-  bottom: -50px;
-  font-size: 18px;
-  opacity: 0.8;
-  animation: floatUp linear infinite;
-  pointer-events: none;
-}
-
-/* ANIMATION */
-@keyframes floatUp {
-  0% {
-    transform: translateY(0) scale(0.8);
-    opacity: 0;
-  }
-  20% {
-    opacity: 0.8;
-  }
-  100% {
-    transform: translateY(-110vh) scale(1.2);
-    opacity: 0;
-  }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 </style>
 </head>
 
 <body>
 
+<!-- Floating Hearts -->
+<script>
+for(let i=0;i<20;i++){
+  let heart=document.createElement('div');
+  heart.className='heart';
+  heart.style.left=Math.random()*100+'vw';
+  heart.style.animationDuration=(6+Math.random()*6)+'s';
+  document.body.appendChild(heart);
+}
+</script>
+
 <div class="container">
-  <h1>Hey Birthday Girl 🎉</h1>
-  <p>Before this day ends… I need you to see something.</p>
+  <div id="countdown"></div>
 
-  <!-- COUNTDOWN -->
-  <div class="countdown">
-    <div class="time-box">
-      <span id="days">00</span>
-      <small>Days</small>
-    </div>
-    <div class="time-box">
-      <span id="hours">00</span>
-      <small>Hours</small>
-    </div>
-    <div class="time-box">
-      <span id="minutes">00</span>
-      <small>Minutes</small>
-    </div>
-    <div class="time-box">
-      <span id="seconds">00</span>
-      <small>Seconds</small>
-    </div>
+  <div id="welcome">
+    <h1>Hey Birthday Girl 🎉</h1>
+    <p>Before this day ends… I need you to see something.</p>
+    <button onclick="goNext()">Enter 💗</button>
   </div>
-
-  <button class="enter-btn">Enter 💗</button>
 </div>
 
 <script>
-/* COUNTDOWN LOGIC – 12:00 AM, 6 Feb 2026 (LOCAL TIME) */
-const targetDate = new Date("2026-02-06T00:00:00");
+// Countdown Target: 6 Feb 2026, 12:00 AM IST
+const targetDate = new Date("2026-02-06T00:00:00+05:30").getTime();
+const countdownEl = document.getElementById("countdown");
+const welcomeEl = document.getElementById("welcome");
 
-function updateCountdown() {
-  const now = new Date();
+const timer = setInterval(() => {
+  const now = new Date().getTime();
   const diff = targetDate - now;
 
-  if (diff <= 0) return;
+  if (diff <= 0) {
+    clearInterval(timer);
+    countdownEl.style.display = "none";
+    welcomeEl.style.display = "block";
+    return;
+  }
 
-  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-  const minutes = Math.floor((diff / (1000 * 60)) % 60);
-  const seconds = Math.floor((diff / 1000) % 60);
+  const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  const m = Math.floor((diff / (1000 * 60)) % 60);
+  const s = Math.floor((diff / 1000) % 60);
 
-  document.getElementById("days").textContent = String(days).padStart(2, "0");
-  document.getElementById("hours").textContent = String(hours).padStart(2, "0");
-  document.getElementById("minutes").textContent = String(minutes).padStart(2, "0");
-  document.getElementById("seconds").textContent = String(seconds).padStart(2, "0");
+  countdownEl.innerHTML = `
+    ⏳ ${d}d ${h}h ${m}m ${s}s <br>
+    <small>Something special is coming…</small>
+  `;
+}, 1000);
+
+function goNext(){
+  window.location.href = "page2.html";
 }
-
-setInterval(updateCountdown, 1000);
-updateCountdown();
-
-/* FLOATING HEARTS & SPARKLES */
-const symbols = ["💗", "✨", "💖", "🌸"];
-
-setInterval(() => {
-  const float = document.createElement("div");
-  float.classList.add("floating");
-  float.innerText = symbols[Math.floor(Math.random() * symbols.length)];
-  float.style.left = Math.random() * 100 + "vw";
-  float.style.animationDuration = (6 + Math.random() * 6) + "s";
-  float.style.fontSize = (14 + Math.random() * 12) + "px";
-
-  document.body.appendChild(float);
-
-  setTimeout(() => float.remove(), 12000);
-}, 400);
 </script>
 
 </body>
