@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Inside Jokes 😭</title>
+
+<style>
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* BODY */
+body {
+  min-height: 100vh;
+  background: #fff1f7;
+  color: #4a0033;
+}
+
+/* CONTAINER */
+.container {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 40px 20px 80px;
+}
+
+/* TITLE */
+h1 {
+  text-align: center;
+  font-size: clamp(2rem, 5vw, 2.6rem);
+  margin-bottom: 10px;
+}
+
+/* NOTE */
+.note {
+  text-align: center;
+  font-size: 0.9rem;
+  opacity: 0.8;
+  margin-bottom: 40px;
+}
+
+/* JOKES */
+.joke {
+  background: white;
+  padding: 18px 22px;
+  border-radius: 22px;
+  margin-bottom: 22px;
+  max-width: 85%;
+  position: relative;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  animation: fadeUp 0.8s ease forwards;
+}
+
+/* LEFT & RIGHT ALIGNMENT */
+.joke.left {
+  margin-right: auto;
+}
+
+.joke.right {
+  margin-left: auto;
+  background: #ffedf4;
+}
+
+/* SPEECH TAILS */
+.joke.left::after {
+  content: "";
+  position: absolute;
+  left: -10px;
+  bottom: 14px;
+  border-width: 10px;
+  border-style: solid;
+  border-color: transparent white transparent transparent;
+}
+
+.joke.right::after {
+  content: "";
+  position: absolute;
+  right: -10px;
+  bottom: 14px;
+  border-width: 10px;
+  border-style: solid;
+  border-color: transparent transparent transparent #ffedf4;
+}
+
+/* SOUND BUTTON */
+.sound-btn {
+  display: block;
+  margin: 40px auto 60px;
+  padding: 12px 32px;
+  border-radius: 40px;
+  border: none;
+  background: linear-gradient(135deg, #ff4f8b, #ff85a2);
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 12px 30px rgba(255, 79, 139, 0.35);
+  transition: all 0.3s ease;
+}
+
+.sound-btn:hover {
+  transform: scale(1.05);
+}
+
+/* NEXT BUTTON */
+.next-btn {
+  display: block;
+  margin: 0 auto;
+  padding: 14px 44px;
+  font-size: 1.05rem;
+  border-radius: 50px;
+  border: none;
+  background: linear-gradient(135deg, #ff4f8b, #ff85a2);
+  color: white;
+  cursor: pointer;
+  transition: all 0.35s ease;
+  box-shadow: 0 12px 30px rgba(255, 79, 139, 0.35);
+}
+
+.next-btn:hover {
+  transform: translateY(-3px) scale(1.05);
+}
+
+/* ANIMATION */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>Inside Jokes 😭</h1>
+  <div class="note">Only we understand this 😭</div>
+
+  <div class="joke left">
+    “Bas 2 minute…”
+    (cut to: 47 minutes later 😭)
+  </div>
+
+  <div class="joke right">
+    That one word you say
+    and I already know the whole mood 😌
+  </div>
+
+  <div class="joke left">
+    Serious conversation?
+    Ends in laughing for no reason 🤦‍♂️😂
+  </div>
+
+  <div class="joke right">
+    You being cringe on purpose
+    and me pretending I hate it 😭💗
+  </div>
+
+  <div class="joke left">
+    Random silence.
+    Zero awkwardness.
+    Just vibes.
+  </div>
+
+  <button class="sound-btn" onclick="playSound()">🔊 Play our vibe</button>
+
+  <button class="next-btn" onclick="goNext()">Okay… last one 👀</button>
+</div>
+
+<audio id="sound">
+  <!-- OPTIONAL: replace with your own short sound -->
+  <source src="https://www.soundjay.com/human/sounds/human-laugh-01.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+function playSound() {
+  document.getElementById("sound").play();
+}
+
+function goNext() {
+  window.location.href = "page8.html";
+}
+</script>
+
+</body>
+</html>
