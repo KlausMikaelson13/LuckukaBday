@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Things You Don’t See</title>
+
+<style>
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* BODY */
+body {
+  background: linear-gradient(to bottom, #12121a, #1b1b28);
+  color: #f2f2f2;
+  min-height: 100vh;
+}
+
+/* CONTAINER */
+.container {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 80px 24px 120px;
+}
+
+/* TITLE */
+h1 {
+  text-align: center;
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  margin-bottom: 80px;
+  font-weight: 500;
+}
+
+/* LINES */
+.line {
+  font-size: clamp(1.2rem, 3vw, 1.45rem);
+  line-height: 1.8;
+  margin-bottom: 60px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 1.2s ease, transform 1.2s ease;
+}
+
+/* REVEALED */
+.line.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* BUTTON */
+.next-btn {
+  display: block;
+  margin: 120px auto 0;
+  padding: 14px 46px;
+  font-size: 1.05rem;
+  border-radius: 50px;
+  border: none;
+  background: linear-gradient(135deg, #ff4f8b, #ff85a2);
+  color: white;
+  cursor: pointer;
+  transition: all 0.35s ease;
+  box-shadow: 0 12px 30px rgba(255, 79, 139, 0.35);
+}
+
+.next-btn:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 18px 40px rgba(255, 79, 139, 0.55);
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>Things you don’t see about yourself</h1>
+
+  <div class="line">You don’t see how your presence calms a room.</div>
+
+  <div class="line">
+    You don’t see how people feel lighter after talking to you.
+  </div>
+
+  <div class="line">
+    You don’t see how strong you are for showing up,
+    even on days you feel empty.
+  </div>
+
+  <div class="line">
+    You don’t see how your laughter fixes moments
+    you never meant to heal.
+  </div>
+
+  <div class="line">
+    You don’t see how deeply you are loved,
+    even in your quiet.
+  </div>
+
+  <div class="line">
+    And you definitely don’t see how easy it is
+    to care about you.
+  </div>
+
+  <button class="next-btn" onclick="goNext()">One last thing 🤍</button>
+</div>
+
+<script>
+/* REVEAL ON SCROLL */
+const lines = document.querySelectorAll(".line");
+
+const observer = new IntersectionObserver(
+  entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("show");
+      }
+    });
+  },
+  { threshold: 0.3 }
+);
+
+lines.forEach(line => observer.observe(line));
+
+function goNext() {
+  window.location.href = "page11.html";
+}
+</script>
+
+</body>
+</html>
