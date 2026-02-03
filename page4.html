@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mini Quiz 😄</title>
+
+<style>
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* BODY */
+body {
+  height: 100vh;
+  background: #fff0f7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #4a0033;
+}
+
+/* CONTAINER */
+.container {
+  background: white;
+  padding: 40px 30px;
+  border-radius: 22px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+  max-width: 480px;
+  width: 90%;
+  animation: fadeIn 1.2s ease forwards;
+}
+
+/* QUESTION */
+h1 {
+  font-size: 1.6rem;
+  margin-bottom: 20px;
+}
+
+/* INPUT */
+input {
+  width: 80%;
+  padding: 12px 16px;
+  border-radius: 14px;
+  border: 2px solid #ffd1e3;
+  font-size: 1rem;
+  outline: none;
+  margin-bottom: 10px;
+}
+
+input:focus {
+  border-color: #ff4f8b;
+}
+
+/* HINT */
+.hint {
+  font-size: 0.85rem;
+  color: #a0005d;
+  margin-bottom: 20px;
+}
+
+/* BUTTONS */
+button {
+  padding: 12px 36px;
+  border-radius: 40px;
+  border: none;
+  background: linear-gradient(135deg, #ff4f8b, #ff85a2);
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+/* NEXT BUTTON (LOCKED INITIALLY) */
+.next-btn {
+  margin-top: 25px;
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* POPUP */
+.popup {
+  margin-top: 20px;
+  font-size: 1rem;
+  display: none;
+}
+
+/* FADE */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>main tujhe pyaar se kya bulata hu??? 🤔💗</h1>
+
+  <input type="text" id="answer" placeholder="Type your answer here…" />
+
+  <div class="hint">
+    Hint: Gujju log pyaar se logo kaa naam aisa kardete hai 😌
+  </div>
+
+  <button onclick="checkAnswer()">Submit</button>
+
+  <div class="popup" id="popup"></div>
+
+  <button class="next-btn" id="nextBtn" onclick="goNext()">Next ➜</button>
+</div>
+
+<script>
+const correctAnswer = "luckudi";
+
+function checkAnswer() {
+  const userAnswer = document.getElementById("answer").value
+    .toLowerCase()
+    .trim();
+
+  const popup = document.getElementById("popup");
+  const nextBtn = document.getElementById("nextBtn");
+
+  if (userAnswer === correctAnswer) {
+    popup.style.display = "block";
+    popup.style.color = "#0a7a3b";
+    popup.innerText = "💖 Of course! Tum toh Luckudi hi ho 😄";
+    
+    nextBtn.style.opacity = "1";
+    nextBtn.style.cursor = "pointer";
+    nextBtn.disabled = false;
+  } else {
+    popup.style.display = "block";
+    popup.style.color = "#b00020";
+    popup.innerText = "😂 Arreyyy nahi! Itna bhi mushkil nahi tha… phir se try karo!";
+    
+    nextBtn.disabled = true;
+    nextBtn.style.opacity = "0.5";
+    nextBtn.style.cursor = "not-allowed";
+  }
+}
+
+function goNext() {
+  window.location.href = "page5.html";
+}
+</script>
+
+</body>
+</html>
