@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>This Is So You 😆</title>
+
+<style>
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* BODY */
+body {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #fff0f7, #ffe3ef);
+  color: #4a0033;
+}
+
+/* CONTAINER */
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 50px 20px 80px;
+}
+
+/* TITLE */
+h1 {
+  text-align: center;
+  font-size: clamp(2rem, 5vw, 2.6rem);
+  margin-bottom: 50px;
+}
+
+/* SECTION */
+.section {
+  margin-bottom: 60px;
+  text-align: center;
+}
+
+/* SECTION TITLE */
+.section h2 {
+  font-size: 1.6rem;
+  margin-bottom: 20px;
+}
+
+/* GIF CARD */
+.gif-card {
+  background: white;
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+  display: inline-block;
+  animation: popIn 0.8s ease;
+}
+
+.gif {
+  width: 100%;
+  max-width: 420px;
+  height: 240px;
+  background: #ffd6e8;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.1rem;
+  color: #7a003d;
+}
+
+/* NEXT BUTTON */
+.next-btn {
+  display: block;
+  margin: 0 auto;
+  padding: 14px 46px;
+  font-size: 1.05rem;
+  border-radius: 50px;
+  border: none;
+  background: linear-gradient(135deg, #ff4f8b, #ff85a2);
+  color: white;
+  cursor: pointer;
+  transition: all 0.35s ease;
+  box-shadow: 0 12px 30px rgba(255, 79, 139, 0.35);
+}
+
+.next-btn:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 18px 40px rgba(255, 79, 139, 0.55);
+}
+
+/* ANIMATION */
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8) rotate(-3deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>Extremely Accurate Representations 😆</h1>
+
+  <div class="section">
+    <h2>You when hungry 🍔</h2>
+    <div class="gif-card">
+      <div class="gif">[Insert chaotic hungry GIF here 😭]</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>You when sleepy 😴</h2>
+    <div class="gif-card">
+      <div class="gif">[Insert sleepy potato GIF here 🥱]</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>You when annoyed 😤</h2>
+    <div class="gif-card">
+      <div class="gif">[Insert dramatic annoyed GIF here 🤦‍♀️]</div>
+    </div>
+  </div>
+
+  <button class="next-btn" onclick="goNext()">Okay okay… next 😌</button>
+</div>
+
+<script>
+function goNext() {
+  window.location.href = "page12.html";
+}
+</script>
+
+</body>
+</html>
