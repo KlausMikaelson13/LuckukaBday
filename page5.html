@@ -61,19 +61,35 @@ h1 {
   height: 260px;
   border-radius: 8px;
   overflow: hidden;
+  background: #000;
 }
 
+/* SOFT BACKGROUND */
+.media::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  filter: blur(18px);
+  z-index: 0;
+}
+
+/* IMAGE & VIDEO */
 .media img,
 .media video {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain; /* ✅ BEST FIT */
+  position: relative;
+  z-index: 1;
+  background: transparent;
 }
 
 /* TEXT OVERLAY */
 .overlay {
   position: absolute;
   inset: 0;
+  z-index: 2;
   background: rgba(0,0,0,0.45);
   color: white;
   display: flex;
@@ -136,7 +152,7 @@ h1 {
       </div>
     </div>
 
-    <!-- MEMORY 3 (VIDEO) -->
+    <!-- MEMORY 3 -->
     <div class="polaroid">
       <div class="media">
         <video src="luckycringe.mp4" autoplay muted loop playsinline></video>
