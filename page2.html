@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>This Is Why 💗</title>
+
+<style>
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* BODY */
+body {
+  height: 100vh;
+  background: #fff7fb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #4a0033;
+}
+
+/* CONTAINER */
+.container {
+  max-width: 520px;
+  padding: 20px;
+  animation: fadeIn 1.6s ease forwards;
+}
+
+/* TEXT */
+p {
+  font-size: clamp(1.2rem, 3vw, 1.4rem);
+  line-height: 1.7;
+  margin-bottom: 50px;
+}
+
+/* BUTTON */
+.next-btn {
+  padding: 14px 44px;
+  font-size: 1.05rem;
+  border-radius: 50px;
+  border: none;
+  background: linear-gradient(135deg, #ff4f8b, #ff85a2);
+  color: white;
+  cursor: pointer;
+  transition: all 0.35s ease;
+  box-shadow: 0 12px 30px rgba(255, 79, 139, 0.35);
+}
+
+.next-btn:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 18px 40px rgba(255, 79, 139, 0.55);
+}
+
+/* FADE IN */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <p>
+    This isn’t a gift you can unwrap.<br>
+    This is a gift you feel.
+  </p>
+
+  <button class="next-btn" onclick="goNext()">Okay… go on 👀</button>
+</div>
+
+<script>
+function goNext() {
+  window.location.href = "page3.html";
+}
+</script>
+
+</body>
+</html>
