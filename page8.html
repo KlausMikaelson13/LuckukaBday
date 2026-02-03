@@ -3,10 +3,9 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Friendship Check 😄</title>
+<title>How Well Do You Know About Us? 😄</title>
 
 <style>
-/* RESET */
 * {
   margin: 0;
   padding: 0;
@@ -14,7 +13,6 @@
   font-family: 'Poppins', sans-serif;
 }
 
-/* BODY */
 body {
   min-height: 100vh;
   background: #fff0f7;
@@ -24,7 +22,6 @@ body {
   color: #4a0033;
 }
 
-/* CONTAINER */
 .container {
   background: white;
   padding: 40px 30px;
@@ -90,7 +87,7 @@ label {
   font-size: 1.1rem;
 }
 
-/* LOCKED NEXT */
+/* NEXT */
 .next-btn {
   display: none;
 }
@@ -100,10 +97,11 @@ label {
 <body>
 
 <div class="container">
-  <h1>How Well Do You Know Us? 😄</h1>
+  <h1>How Well Do You Know About Us? 😄</h1>
 
   <form id="quizForm">
 
+    <!-- QUESTION 1 -->
     <div class="question">
       <h3>1️⃣ Where did we first properly meet?</h3>
       <label><input type="radio" name="q1" value="0"> Random chat</label>
@@ -111,18 +109,12 @@ label {
       <label><input type="radio" name="q1" value="0"> Instagram DM</label>
     </div>
 
+    <!-- QUESTION 2 -->
     <div class="question">
-      <h3>2️⃣ What is your certified personality?</h3>
-      <label><input type="radio" name="q2" value="0"> Serious & calm</label>
-      <label><input type="radio" name="q2" value="1"> Cringe but fun 😭💗</label>
-      <label><input type="radio" name="q2" value="0"> Always angry</label>
-    </div>
-
-    <div class="question">
-      <h3>3️⃣ What surprised me the most?</h3>
-      <label><input type="radio" name="q3" value="0"> Your punctuality</label>
-      <label><input type="radio" name="q3" value="1"> Talking to you made me happy, even for no reason 🫶</label>
-      <label><input type="radio" name="q3" value="0"> Your seriousness</label>
+      <h3>2️⃣ What do I like the most about you?</h3>
+      <label><input type="radio" name="q2" value="0"> Attitude</label>
+      <label><input type="radio" name="q2" value="1"> Laugh 😄</label>
+      <label><input type="radio" name="q2" value="0"> Seriousness</label>
     </div>
 
     <button type="button" class="submit-btn" onclick="submitQuiz()">Submit</button>
@@ -131,7 +123,7 @@ label {
   <div class="result" id="result">
     <h2 id="scoreText"></h2>
     <p id="reaction"></p>
-    <button class="next-btn" onclick="goNext()">Okay okay… next 😌</button>
+    <button class="next-btn" onclick="goNext()">Okay… next 😌</button>
   </div>
 </div>
 
@@ -144,12 +136,12 @@ function submitQuiz() {
   const nextBtn = document.querySelector(".next-btn");
 
   let score = 0;
-  const answers = ["q1", "q2", "q3"];
+  const answers = ["q1", "q2"];
 
   for (let q of answers) {
     const selected = form.querySelector(`input[name="${q}"]:checked`);
     if (!selected) {
-      alert("Arreyy! Sab questions attempt karo 😄");
+      alert("Arreyy! Dono questions attempt karo 😄");
       return;
     }
     score += Number(selected.value);
@@ -159,14 +151,14 @@ function submitQuiz() {
   resultBox.style.display = "block";
   nextBtn.style.display = "block";
 
-  scoreText.innerText = `Your Score: ${score}/3`;
+  scoreText.innerText = `Your Score: ${score}/2`;
 
-  if (score === 3) {
-    reaction.innerText = "😭💗 Okay wow. You really KNOW us.";
-  } else if (score === 2) {
-    reaction.innerText = "😌 Not bad. Pretty solid friendship energy.";
+  if (score === 2) {
+    reaction.innerText = "😭💗 Perfect! You really KNOW us.";
+  } else if (score === 1) {
+    reaction.innerText = "😌 Not bad! Almost there.";
   } else {
-    reaction.innerText = "😂 Clearly friendship ke notes revise karne padenge.";
+    reaction.innerText = "😂 Friendship ka revision chalu karna padega.";
   }
 }
 
