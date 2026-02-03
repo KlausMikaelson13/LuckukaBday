@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Truth or Dare 😌</title>
+
+<style>
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* BODY */
+body {
+  height: 100vh;
+  background: linear-gradient(135deg, #fff0f7, #ffe3ef);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #4a0033;
+  text-align: center;
+}
+
+/* CONTAINER */
+.container {
+  max-width: 600px;
+  padding: 40px 25px;
+}
+
+/* TITLE */
+h1 {
+  font-size: clamp(2rem, 5vw, 2.6rem);
+  margin-bottom: 40px;
+}
+
+/* BUTTONS */
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.choice-btn {
+  padding: 14px 44px;
+  font-size: 1.1rem;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(135deg, #ff4f8b, #ff85a2);
+  color: white;
+  transition: all 0.35s ease;
+  box-shadow: 0 12px 30px rgba(255, 79, 139, 0.35);
+}
+
+.choice-btn:hover {
+  transform: translateY(-4px) scale(1.06);
+  box-shadow: 0 18px 40px rgba(255, 79, 139, 0.55);
+}
+
+/* MESSAGE BOX */
+.message {
+  display: none;
+  font-size: 1.3rem;
+  line-height: 1.7;
+  animation: fadeIn 1.2s ease forwards;
+}
+
+/* FADE */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>Truth or Dare 😌</h1>
+
+  <div class="buttons">
+    <button class="choice-btn" onclick="showTruth()">Truth</button>
+    <button class="choice-btn" onclick="showDare()">Dare</button>
+  </div>
+
+  <div class="message" id="truthMsg">
+    Truth 🤍<br><br>
+    I made this entire website because<br>
+    you matter more to me than you realize.
+  </div>
+
+  <div class="message" id="dareMsg">
+    Dare 😏<br><br>
+    Smile right now…<br>
+    because you just crossed my mind.
+  </div>
+</div>
+
+<script>
+function showTruth() {
+  document.getElementById("dareMsg").style.display = "none";
+  document.getElementById("truthMsg").style.display = "block";
+}
+
+function showDare() {
+  document.getElementById("truthMsg").style.display = "none";
+  document.getElementById("dareMsg").style.display = "block";
+}
+</script>
+
+</body>
+</html>
