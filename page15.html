@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>A Little Letter 🤍</title>
+
+<!-- Handwritten-style font -->
+<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+
+<style>
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* BODY */
+body {
+  min-height: 100vh;
+  background:
+    linear-gradient(0deg, rgba(0,0,0,0.02), rgba(0,0,0,0.02)),
+    repeating-linear-gradient(
+      0deg,
+      #fdf8f2,
+      #fdf8f2 28px,
+      #f7efe4 29px
+    );
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Patrick Hand', cursive;
+  color: #3a2a1a;
+}
+
+/* PAPER */
+.paper {
+  max-width: 720px;
+  width: 90%;
+  padding: 50px 40px 60px;
+  background: #fffdf9;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.18);
+  border-radius: 8px;
+  position: relative;
+}
+
+/* LETTER TEXT */
+.letter {
+  font-size: 1.35rem;
+  line-height: 1.9;
+  white-space: pre-wrap;
+  overflow: hidden;
+}
+
+/* CURSOR */
+.cursor {
+  display: inline-block;
+  width: 8px;
+  height: 1.3rem;
+  background: #3a2a1a;
+  margin-left: 4px;
+  animation: blink 1s infinite;
+}
+
+/* BUTTON */
+.next-btn {
+  display: none;
+  margin: 40px auto 0;
+  padding: 14px 46px;
+  font-size: 1.05rem;
+  border-radius: 50px;
+  border: none;
+  background: linear-gradient(135deg, #ff4f8b, #ff85a2);
+  color: white;
+  cursor: pointer;
+  transition: all 0.35s ease;
+  box-shadow: 0 12px 30px rgba(255, 79, 139, 0.35);
+}
+
+.next-btn:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 18px 40px rgba(255, 79, 139, 0.55);
+}
+
+/* BLINK */
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="paper">
+  <div class="letter" id="letter"></div><span class="cursor" id="cursor"></span>
+
+  <button class="next-btn" id="nextBtn" onclick="goNext()">One last page 🤍</button>
+</div>
+
+<script>
+const text = `
+I don’t know if I say this enough,
+but I’m really grateful for you.
+
+For your time.
+For your patience.
+For the way you stay, even when things feel heavy.
+
+Thank you for being exactly who you are,
+without trying to be anything else.
+
+This isn’t something I take lightly.
+And neither do I take you for granted.
+
+Just… thank you.
+For existing.
+For choosing to be you.
+`;
+
+let index = 0;
+const speed = 45;
+const letterEl = document.getElementById("letter");
+const cursor = document.getElementById("cursor");
+const nextBtn = document.getElementById("nextBtn");
+
+function typeText() {
+  if (index < text.length) {
+    letterEl.textContent += text.charAt(index);
+    index++;
+    setTimeout(typeText, speed);
+  } else {
+    cursor.style.display = "none";
+    nextBtn.style.display = "block";
+  }
+}
+
+typeText();
+
+function goNext() {
+  window.location.href = "page16.html";
+}
+</script>
+
+</body>
+</html>
