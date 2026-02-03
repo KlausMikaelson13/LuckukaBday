@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Friendship Check 😄</title>
+
+<style>
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* BODY */
+body {
+  min-height: 100vh;
+  background: #fff0f7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #4a0033;
+}
+
+/* CONTAINER */
+.container {
+  background: white;
+  padding: 40px 30px;
+  border-radius: 22px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+  max-width: 600px;
+  width: 90%;
+}
+
+/* TITLE */
+h1 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* QUESTION */
+.question {
+  margin-bottom: 25px;
+}
+
+.question h3 {
+  font-size: 1.05rem;
+  margin-bottom: 10px;
+}
+
+/* OPTIONS */
+label {
+  display: block;
+  margin-bottom: 6px;
+  cursor: pointer;
+}
+
+/* BUTTON */
+.submit-btn, .next-btn {
+  margin-top: 20px;
+  padding: 12px 40px;
+  border-radius: 40px;
+  border: none;
+  background: linear-gradient(135deg, #ff4f8b, #ff85a2);
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.submit-btn:hover,
+.next-btn:hover {
+  transform: scale(1.05);
+}
+
+/* RESULT */
+.result {
+  margin-top: 25px;
+  text-align: center;
+  display: none;
+}
+
+.result p {
+  margin-top: 10px;
+  font-size: 1.1rem;
+}
+
+/* LOCKED NEXT */
+.next-btn {
+  display: none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>How Well Do You Know Us? 😄</h1>
+
+  <form id="quizForm">
+
+    <div class="question">
+      <h3>1️⃣ Where did we first properly meet?</h3>
+      <label><input type="radio" name="q1" value="0"> Random chat</label>
+      <label><input type="radio" name="q1" value="1"> Badminton ground 🏸</label>
+      <label><input type="radio" name="q1" value="0"> Instagram DM</label>
+    </div>
+
+    <div class="question">
+      <h3>2️⃣ What is your certified personality?</h3>
+      <label><input type="radio" name="q2" value="0"> Serious & calm</label>
+      <label><input type="radio" name="q2" value="1"> Cringe but fun 😭💗</label>
+      <label><input type="radio" name="q2" value="0"> Always angry</label>
+    </div>
+
+    <div class="question">
+      <h3>3️⃣ What surprised me the most?</h3>
+      <label><input type="radio" name="q3" value="0"> Your punctuality</label>
+      <label><input type="radio" name="q3" value="1"> Talking to you made me happy, even for no reason 🫶</label>
+      <label><input type="radio" name="q3" value="0"> Your seriousness</label>
+    </div>
+
+    <button type="button" class="submit-btn" onclick="submitQuiz()">Submit</button>
+  </form>
+
+  <div class="result" id="result">
+    <h2 id="scoreText"></h2>
+    <p id="reaction"></p>
+    <button class="next-btn" onclick="goNext()">Okay okay… next 😌</button>
+  </div>
+</div>
+
+<script>
+function submitQuiz() {
+  const form = document.getElementById("quizForm");
+  const resultBox = document.getElementById("result");
+  const scoreText = document.getElementById("scoreText");
+  const reaction = document.getElementById("reaction");
+  const nextBtn = document.querySelector(".next-btn");
+
+  let score = 0;
+  const answers = ["q1", "q2", "q3"];
+
+  for (let q of answers) {
+    const selected = form.querySelector(`input[name="${q}"]:checked`);
+    if (!selected) {
+      alert("Arreyy! Sab questions attempt karo 😄");
+      return;
+    }
+    score += Number(selected.value);
+  }
+
+  form.style.display = "none";
+  resultBox.style.display = "block";
+  nextBtn.style.display = "block";
+
+  scoreText.innerText = `Your Score: ${score}/3`;
+
+  if (score === 3) {
+    reaction.innerText = "😭💗 Okay wow. You really KNOW us.";
+  } else if (score === 2) {
+    reaction.innerText = "😌 Not bad. Pretty solid friendship energy.";
+  } else {
+    reaction.innerText = "😂 Clearly friendship ke notes revise karne padenge.";
+  }
+}
+
+function goNext() {
+  window.location.href = "page9.html";
+}
+</script>
+
+</body>
+</html>
