@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Your Turn 🤍</title>
+
+<style>
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* BODY */
+body {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f8f3ff, #fff6fb);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #4a0033;
+  text-align: center;
+}
+
+/* CONTAINER */
+.container {
+  max-width: 650px;
+  width: 90%;
+  padding: 40px 25px;
+}
+
+/* TITLE */
+h1 {
+  font-size: clamp(2rem, 5vw, 2.6rem);
+  margin-bottom: 14px;
+}
+
+p {
+  font-size: 1.05rem;
+  margin-bottom: 30px;
+  opacity: 0.85;
+}
+
+/* TEXTAREA */
+textarea {
+  width: 100%;
+  min-height: 160px;
+  padding: 16px 18px;
+  border-radius: 16px;
+  border: 2px solid #ffd1e3;
+  font-size: 1rem;
+  resize: vertical;
+  outline: none;
+}
+
+textarea:focus {
+  border-color: #ff4f8b;
+}
+
+/* BUTTONS */
+.btn {
+  margin-top: 25px;
+  padding: 14px 44px;
+  font-size: 1.05rem;
+  border-radius: 50px;
+  border: none;
+  background: linear-gradient(135deg, #ff4f8b, #ff85a2);
+  color: white;
+  cursor: pointer;
+  transition: all 0.35s ease;
+  box-shadow: 0 12px 30px rgba(255, 79, 139, 0.35);
+}
+
+.btn:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 18px 40px rgba(255, 79, 139, 0.55);
+}
+
+/* CONFIRMATION */
+.confirmation {
+  display: none;
+  margin-top: 20px;
+  font-size: 1rem;
+  color: #0a7a3b;
+  animation: fadeIn 1s ease forwards;
+}
+
+/* ANIMATION */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>Your turn 🤍</h1>
+  <p>
+    You don’t have to overthink this.<br>
+    Just write whatever feels right.
+  </p>
+
+  <textarea id="messageInput" placeholder="Write your message here…"></textarea>
+
+  <br>
+  <button class="btn" onclick="saveMessage()">Save my message 💌</button>
+
+  <div class="confirmation" id="confirmation">
+    Your message is saved safely 🤍
+  </div>
+
+  <br>
+  <button class="btn" onclick="goNext()">Continue ➜</button>
+</div>
+
+<script>
+const textarea = document.getElementById("messageInput");
+const confirmation = document.getElementById("confirmation");
+
+/* LOAD SAVED MESSAGE (if any) */
+const saved = localStorage.getItem("herMessage");
+if (saved) {
+  textarea.value = saved;
+}
+
+/* SAVE MESSAGE */
+function saveMessage() {
+  const text = textarea.value.trim();
+  if (!text) {
+    alert("Write something first 🤍");
+    return;
+  }
+  localStorage.setItem("herMessage", text);
+  confirmation.style.display = "block";
+}
+
+/* NEXT PAGE */
+function goNext() {
+  window.location.href = "page20.html";
+}
+</script>
+
+</body>
+</html>
