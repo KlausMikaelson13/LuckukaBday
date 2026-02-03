@@ -3,137 +3,89 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ready for your gift?</title>
+<title>Hey Birthday Girl 🎉</title>
 
 <style>
-@font-face {
-  font-family: 'Heavitas';
-  src: url('Heavitas.ttf') format('truetype');
-}
-
 /* RESET */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
 }
 
 /* BODY */
 body {
   height: 100vh;
-  width: 100vw;
   overflow: hidden;
-  background: black;
-}
-
-/* VIDEO WRAPPER */
-.video-bg {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  overflow: hidden;
-}
-
-.video-bg video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* 🔥 KEY LINE */
-}
-
-/* OVERLAY */
-.overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.35);
-  z-index: 1;
-}
-
-/* WIND EFFECT */
-.wind {
-  position: fixed;
-  inset: 0;
-  background: repeating-linear-gradient(
-    -10deg,
-    rgba(255,255,255,0.04),
-    rgba(255,255,255,0.02) 40px,
-    transparent 80px
-  );
-  animation: windMove 14s linear infinite;
-  z-index: 2;
-  pointer-events: none;
-}
-
-@keyframes windMove {
-  from { background-position: 0 0; }
-  to   { background-position: 1200px 0; }
-}
-
-/* CONTENT */
-.content {
-  position: relative;
-  z-index: 3;
-  height: 100vh;
-  width: 100vw;
+  background: radial-gradient(circle at top, #ffd6e8, #ff9dbb);
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
-  color: white;
-  font-family: 'Heavitas', sans-serif;
+  color: #4a0033;
 }
 
-.content h1 {
-  font-size: clamp(1.8rem, 4vw, 3rem);
-  letter-spacing: 2px;
-  margin-bottom: 40px;
-  text-shadow: 0 10px 30px rgba(0,0,0,0.8);
-}
-
-/* BUTTONS */
-.buttons {
-  display: flex;
-  gap: 50px;
+/* CONTAINER */
+.container {
   position: relative;
+  z-index: 2;
+  padding: 20px;
 }
 
-button {
-  font-family: 'Heavitas', sans-serif;
+/* MAIN TEXT */
+h1 {
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  margin-bottom: 15px;
+}
+
+p {
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  max-width: 420px;
+  margin: 0 auto 40px;
+  line-height: 1.6;
+}
+
+/* BUTTON */
+.enter-btn {
+  padding: 14px 42px;
   font-size: 1.1rem;
-  padding: 14px 40px;
-  border-radius: 40px;
+  border-radius: 50px;
   border: none;
-  cursor: pointer;
-  letter-spacing: 2px;
-}
-
-/* YES */
-.yes {
-  background: white;
-  color: black;
-  transition: transform 0.3s ease;
-}
-
-.yes:hover {
-  transform: scale(1.1);
-}
-
-/* NO */
-.no {
-  background: transparent;
+  background: linear-gradient(135deg, #ff4f8b, #ff85a2);
   color: white;
-  border: 2px solid white;
-  position: absolute;
+  cursor: pointer;
+  transition: all 0.35s ease;
+  box-shadow: 0 12px 30px rgba(255, 79, 139, 0.4);
 }
 
-/* MOBILE */
-@media (max-width: 600px) {
-  .buttons {
-    gap: 30px;
-  }
+.enter-btn:hover {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 18px 40px rgba(255, 79, 139, 0.6);
+}
 
-  button {
-    padding: 12px 30px;
+/* FLOATING HEARTS / SPARKLES */
+.floating {
+  position: absolute;
+  bottom: -50px;
+  font-size: 18px;
+  opacity: 0.8;
+  animation: floatUp linear infinite;
+  pointer-events: none;
+}
+
+/* ANIMATION */
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) scale(0.8);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(-110vh) scale(1.2);
+    opacity: 0;
   }
 }
 </style>
@@ -141,45 +93,30 @@ button {
 
 <body>
 
-<!-- 🎥 VIDEO BACKGROUND -->
-<div class="video-bg">
-  <video autoplay muted loop playsinline>
-    <source src="luckyvid7.mp4" type="video/mp4">
-  </video>
-</div>
-
-<div class="overlay"></div>
-<div class="wind"></div>
-
-<div class="content">
-  <h1>Are you ready for your gift?</h1>
-
-  <div class="buttons">
-    <button class="yes" onclick="goNext()">YES</button>
-    <button class="no" id="noBtn">NO</button>
-  </div>
+<div class="container">
+  <h1>Hey Birthday Girl 🎉</h1>
+  <p>Before this day ends… I need you to see something.</p>
+  <button class="enter-btn">Enter 💗</button>
 </div>
 
 <script>
-function goNext() {
-  window.location.href = "page1.html";
-}
+/* FLOATING HEARTS & SPARKLES */
+const symbols = ["💗", "✨", "💖", "🌸"];
 
-const noBtn = document.getElementById("noBtn");
+setInterval(() => {
+  const float = document.createElement("div");
+  float.classList.add("floating");
+  float.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+  float.style.left = Math.random() * 100 + "vw";
+  float.style.animationDuration = (6 + Math.random() * 6) + "s";
+  float.style.fontSize = (14 + Math.random() * 12) + "px";
 
-function moveButton() {
-  const maxX = window.innerWidth - noBtn.offsetWidth - 20;
-  const maxY = window.innerHeight - noBtn.offsetHeight - 20;
+  document.body.appendChild(float);
 
-  const x = Math.random() * maxX;
-  const y = Math.random() * maxY;
-
-  noBtn.style.left = x + "px";
-  noBtn.style.top = y + "px";
-}
-
-noBtn.addEventListener("mouseenter", moveButton);
-noBtn.addEventListener("touchstart", moveButton);
+  setTimeout(() => {
+    float.remove();
+  }, 12000);
+}, 400);
 </script>
 
 </body>
