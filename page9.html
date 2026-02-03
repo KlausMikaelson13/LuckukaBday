@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Always Here</title>
+
+<style>
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* BODY */
+body {
+  height: 100vh;
+  background: radial-gradient(circle at top, #1f1f2e, #0f0f17);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #f5f5f5;
+  text-align: center;
+  overflow: hidden;
+}
+
+/* CONTAINER */
+.container {
+  max-width: 600px;
+  padding: 30px 25px;
+  animation: slowFade 3s ease forwards;
+}
+
+/* TEXT */
+p {
+  font-size: clamp(1.3rem, 3vw, 1.6rem);
+  line-height: 1.8;
+  letter-spacing: 0.5px;
+  opacity: 0.9;
+}
+
+/* BUTTON */
+.next-btn {
+  margin-top: 60px;
+  padding: 14px 46px;
+  font-size: 1.05rem;
+  border-radius: 50px;
+  border: none;
+  background: linear-gradient(135deg, #ff4f8b, #ff85a2);
+  color: white;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  box-shadow: 0 12px 30px rgba(255, 79, 139, 0.35);
+}
+
+.next-btn:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 18px 40px rgba(255, 79, 139, 0.55);
+}
+
+/* FADE ANIMATION */
+@keyframes slowFade {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <p>
+    I protect your silence.<br><br>
+    Your tears.<br><br>
+    Your smile when you pretend you’re okay.
+  </p>
+
+  <button class="next-btn" onclick="goNext()">Stay with me a little more</button>
+</div>
+
+<script>
+function goNext() {
+  window.location.href = "page10.html";
+}
+</script>
+
+</body>
+</html>
