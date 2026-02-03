@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Generate a Wish 🎁</title>
+
+<style>
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* BODY */
+body {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #fff0f7, #ffe3ef);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #4a0033;
+  text-align: center;
+}
+
+/* CONTAINER */
+.container {
+  max-width: 600px;
+  padding: 40px 25px;
+}
+
+/* TITLE */
+h1 {
+  font-size: clamp(2rem, 5vw, 2.6rem);
+  margin-bottom: 30px;
+}
+
+/* WISH BOX */
+.wish-box {
+  min-height: 120px;
+  font-size: 1.4rem;
+  line-height: 1.7;
+  margin-bottom: 35px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.6s ease;
+}
+
+/* SHOW WISH */
+.wish-box.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* BUTTONS */
+.btn {
+  padding: 14px 44px;
+  font-size: 1.05rem;
+  border-radius: 50px;
+  border: none;
+  background: linear-gradient(135deg, #ff4f8b, #ff85a2);
+  color: white;
+  cursor: pointer;
+  transition: all 0.35s ease;
+  box-shadow: 0 12px 30px rgba(255, 79, 139, 0.35);
+  margin: 10px;
+}
+
+.btn:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 18px 40px rgba(255, 79, 139, 0.55);
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>Generate a Wish 🎁</h1>
+
+  <div class="wish-box" id="wishBox"></div>
+
+  <button class="btn" onclick="generateWish()">Generate Wish 🎉</button>
+  <br>
+  <button class="btn" onclick="goNext()">One more surprise 👀</button>
+</div>
+
+<script>
+const wishes = [
+  // Funny 😄
+  "Happy Birthday! May your food be hot, your Wi-Fi strong, and your patience… optional 😄",
+  "Another year older, but still illegally cute. Don’t question it 😌",
+  "Happy Birthday! You’re now officially at the age where naps feel productive 😂",
+
+  // Emotional 💖
+  "Happy Birthday 🤍 May this year remind you how deeply you are loved, even on quiet days.",
+  "You deserve a year that feels gentle, kind, and full of moments that make you smile.",
+  "Happy Birthday. I hope life surprises you in the softest ways possible 💫",
+
+  // Crazy 🎭
+  "Happy Birthday!! May your life be as dramatic as a movie trailer and twice as iconic 🎬🔥",
+  "Another year, another reason for the universe to flex by creating YOU 😭✨",
+  "Happy Birthday! Go be chaotic, magical, and unforgettable — like always 💥🎉"
+];
+
+function generateWish() {
+  const box = document.getElementById("wishBox");
+  const randomWish = wishes[Math.floor(Math.random() * wishes.length)];
+  box.textContent = randomWish;
+  box.classList.remove("show");
+  void box.offsetWidth; // reset animation
+  box.classList.add("show");
+}
+
+function goNext() {
+  window.location.href = "page17.html";
+}
+</script>
+
+</body>
+</html>
