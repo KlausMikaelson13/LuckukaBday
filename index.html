@@ -36,14 +36,41 @@ body {
 /* MAIN TEXT */
 h1 {
   font-size: clamp(2.2rem, 5vw, 3.2rem);
-  margin-bottom: 15px;
+  margin-bottom: 12px;
 }
 
 p {
   font-size: clamp(1rem, 2.5vw, 1.2rem);
   max-width: 420px;
-  margin: 0 auto 40px;
+  margin: 0 auto 28px;
   line-height: 1.6;
+}
+
+/* COUNTDOWN */
+.countdown {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+.time-box {
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(6px);
+  border-radius: 14px;
+  padding: 10px 14px;
+  min-width: 70px;
+}
+
+.time-box span {
+  display: block;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.time-box small {
+  font-size: 0.75rem;
+  opacity: 0.8;
 }
 
 /* BUTTON */
@@ -96,10 +123,54 @@ p {
 <div class="container">
   <h1>Hey Birthday Girl 🎉</h1>
   <p>Before this day ends… I need you to see something.</p>
+
+  <!-- COUNTDOWN -->
+  <div class="countdown">
+    <div class="time-box">
+      <span id="days">00</span>
+      <small>Days</small>
+    </div>
+    <div class="time-box">
+      <span id="hours">00</span>
+      <small>Hours</small>
+    </div>
+    <div class="time-box">
+      <span id="minutes">00</span>
+      <small>Minutes</small>
+    </div>
+    <div class="time-box">
+      <span id="seconds">00</span>
+      <small>Seconds</small>
+    </div>
+  </div>
+
   <button class="enter-btn">Enter 💗</button>
 </div>
 
 <script>
+/* COUNTDOWN LOGIC – 12:00 AM, 6 Feb 2026 (LOCAL TIME) */
+const targetDate = new Date("2026-02-06T00:00:00");
+
+function updateCountdown() {
+  const now = new Date();
+  const diff = targetDate - now;
+
+  if (diff <= 0) return;
+
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  const minutes = Math.floor((diff / (1000 * 60)) % 60);
+  const seconds = Math.floor((diff / 1000) % 60);
+
+  document.getElementById("days").textContent = String(days).padStart(2, "0");
+  document.getElementById("hours").textContent = String(hours).padStart(2, "0");
+  document.getElementById("minutes").textContent = String(minutes).padStart(2, "0");
+  document.getElementById("seconds").textContent = String(seconds).padStart(2, "0");
+}
+
+setInterval(updateCountdown, 1000);
+updateCountdown();
+
 /* FLOATING HEARTS & SPARKLES */
 const symbols = ["💗", "✨", "💖", "🌸"];
 
@@ -113,9 +184,7 @@ setInterval(() => {
 
   document.body.appendChild(float);
 
-  setTimeout(() => {
-    float.remove();
-  }, 12000);
+  setTimeout(() => float.remove(), 12000);
 }, 400);
 </script>
 
