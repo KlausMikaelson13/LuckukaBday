@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Songs That Feel Like Us 🎶</title>
+
+<style>
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* BODY */
+body {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #fff2f8, #fde6f1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #4a0033;
+}
+
+/* CONTAINER */
+.container {
+  max-width: 700px;
+  width: 90%;
+  padding: 40px 25px;
+  text-align: center;
+}
+
+/* TITLE */
+h1 {
+  font-size: clamp(2rem, 5vw, 2.6rem);
+  margin-bottom: 40px;
+}
+
+/* PLAYLIST */
+.playlist {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-bottom: 50px;
+}
+
+/* SONG CARD */
+.song {
+  background: rgba(255,255,255,0.75);
+  padding: 18px 22px;
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease;
+}
+
+.song:hover {
+  transform: scale(1.02);
+}
+
+/* SONG TITLE */
+.song a {
+  text-decoration: none;
+  color: #ff4f8b;
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+
+/* REASON */
+.reason {
+  font-size: 0.9rem;
+  margin-top: 6px;
+  color: #6a003f;
+}
+
+/* BUTTON */
+.next-btn {
+  padding: 14px 44px;
+  font-size: 1.05rem;
+  border-radius: 50px;
+  border: none;
+  background: linear-gradient(135deg, #ff4f8b, #ff85a2);
+  color: white;
+  cursor: pointer;
+  transition: all 0.35s ease;
+  box-shadow: 0 12px 30px rgba(255, 79, 139, 0.35);
+}
+
+.next-btn:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 18px 40px rgba(255, 79, 139, 0.55);
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>Songs That Feel Like Us 🎶</h1>
+
+  <div class="playlist">
+
+    <div class="song">
+      <a href="https://open.spotify.com" target="_blank">💗 Song One</a>
+      <div class="reason">
+        Because it feels like late talks where nothing important was said,
+        yet everything felt right.
+      </div>
+    </div>
+
+    <div class="song">
+      <a href="https://open.spotify.com" target="_blank">🌸 Song Two</a>
+      <div class="reason">
+        This one reminds me of your vibe — calm, chaotic, and comforting
+        all at once.
+      </div>
+    </div>
+
+    <div class="song">
+      <a href="https://open.spotify.com" target="_blank">✨ Song Three</a>
+      <div class="reason">
+        The kind of song you don’t just hear…
+        you feel it quietly.
+      </div>
+    </div>
+
+    <div class="song">
+      <a href="https://open.spotify.com" target="_blank">🎧 Song Four</a>
+      <div class="reason">
+        Makes me smile without knowing why.
+        Just like you do.
+      </div>
+    </div>
+
+  </div>
+
+  <button class="next-btn" onclick="goNext()">One last page 💌</button>
+</div>
+
+<script>
+function goNext() {
+  window.location.href = "page7.html";
+}
+</script>
+
+</body>
+</html>
