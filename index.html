@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ready for your gift?</title>
 
 <style>
@@ -20,36 +21,36 @@
 /* BODY */
 body {
   height: 100vh;
+  width: 100vw;
   overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
   background: black;
 }
 
-/* 🎥 VIDEO BACKGROUND */
-video.bg-video {
+/* VIDEO WRAPPER */
+.video-bg {
   position: fixed;
-  top: 0;
-  left: 0;
-  min-width: 100%;
-  min-height: 100%;
-  object-fit: cover;
+  inset: 0;
   z-index: 0;
+  overflow: hidden;
 }
 
-/* DARK OVERLAY */
+.video-bg video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* 🔥 KEY LINE */
+}
+
+/* OVERLAY */
 .overlay {
-  position: absolute;
+  position: fixed;
   inset: 0;
   background: rgba(0,0,0,0.35);
   z-index: 1;
 }
 
-/* 🌬️ WIND EFFECT */
+/* WIND EFFECT */
 .wind {
-  position: absolute;
+  position: fixed;
   inset: 0;
   background: repeating-linear-gradient(
     -10deg,
@@ -57,28 +58,35 @@ video.bg-video {
     rgba(255,255,255,0.02) 40px,
     transparent 80px
   );
-  animation: windMove 12s linear infinite;
+  animation: windMove 14s linear infinite;
   z-index: 2;
+  pointer-events: none;
 }
 
 @keyframes windMove {
   from { background-position: 0 0; }
-  to   { background-position: 1000px 0; }
+  to   { background-position: 1200px 0; }
 }
 
 /* CONTENT */
 .content {
   position: relative;
   z-index: 3;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   text-align: center;
   color: white;
   font-family: 'Heavitas', sans-serif;
 }
 
 .content h1 {
-  font-size: 3rem;
-  margin-bottom: 40px;
+  font-size: clamp(1.8rem, 4vw, 3rem);
   letter-spacing: 2px;
+  margin-bottom: 40px;
   text-shadow: 0 10px 30px rgba(0,0,0,0.8);
 }
 
@@ -86,7 +94,7 @@ video.bg-video {
 .buttons {
   display: flex;
   gap: 50px;
-  justify-content: center;
+  position: relative;
 }
 
 button {
@@ -99,7 +107,7 @@ button {
   letter-spacing: 2px;
 }
 
-/* YES BUTTON */
+/* YES */
 .yes {
   background: white;
   color: black;
@@ -110,7 +118,7 @@ button {
   transform: scale(1.1);
 }
 
-/* NO BUTTON */
+/* NO */
 .no {
   background: transparent;
   color: white;
@@ -120,9 +128,12 @@ button {
 
 /* MOBILE */
 @media (max-width: 600px) {
-  .content h1 {
-    font-size: 2rem;
-    padding: 0 20px;
+  .buttons {
+    gap: 30px;
+  }
+
+  button {
+    padding: 12px 30px;
   }
 }
 </style>
@@ -130,10 +141,12 @@ button {
 
 <body>
 
-<!-- 🎥 BACKGROUND VIDEO -->
-<video class="bg-video" autoplay muted loop playsinline>
-  <source src="luckyvid7.mp4" type="video/mp4">
-</video>
+<!-- 🎥 VIDEO BACKGROUND -->
+<div class="video-bg">
+  <video autoplay muted loop playsinline>
+    <source src="luckyvid7.mp4" type="video/mp4">
+  </video>
+</div>
 
 <div class="overlay"></div>
 <div class="wind"></div>
@@ -155,8 +168,11 @@ function goNext() {
 const noBtn = document.getElementById("noBtn");
 
 function moveButton() {
-  const x = Math.random() * (window.innerWidth - 120);
-  const y = Math.random() * (window.innerHeight - 80);
+  const maxX = window.innerWidth - noBtn.offsetWidth - 20;
+  const maxY = window.innerHeight - noBtn.offsetHeight - 20;
+
+  const x = Math.random() * maxX;
+  const y = Math.random() * maxY;
 
   noBtn.style.left = x + "px";
   noBtn.style.top = y + "px";
