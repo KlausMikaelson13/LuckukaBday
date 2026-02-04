@@ -11,6 +11,7 @@
   padding: 0;
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
+  user-select: none;
 }
 
 body {
@@ -48,6 +49,7 @@ canvas {
   overflow: hidden;
   box-shadow: 0 25px 60px rgba(0,0,0,0.5);
   margin-bottom: 30px;
+  pointer-events: none;
 }
 
 .image-wrapper img {
@@ -65,13 +67,7 @@ h1 {
 .subtitle {
   font-size: 1rem;
   opacity: 0.75;
-  margin-bottom: 25px;
-}
-
-/* AUDIO */
-audio {
-  width: 280px;
-  margin-bottom: 40px;
+  margin-bottom: 35px;
 }
 
 /* BUTTON */
@@ -93,35 +89,43 @@ audio {
 </style>
 </head>
 
-<body>
+<body oncontextmenu="return false">
 
 <canvas id="visualizer"></canvas>
 
 <div class="container">
   <div class="image-wrapper">
-    <img src="lucky5.jpeg" alt="Lucky">
+    <img src="lucky5.jpeg" alt="Lucky" draggable="false">
   </div>
 
   <h1>Ishq Hai 🤍</h1>
-  <div class="subtitle">Some feelings sound better.</div>
+  <div class="subtitle">Some feelings don’t need words.</div>
 
-  <audio id="audio" controls>
-    <source src="ishqhai.mp3" type="audio/mpeg">
-    Your browser does not support audio.
-  </audio>
+  <!-- AUDIO (hidden controls, auto-loop) -->
+  <audio
+    id="audio"
+    src="ishqhai.mp3"
+    loop
+    preload="auto"
+    controlslist="nodownload"
+  ></audio>
 
   <button class="next-btn" onclick="goNext()">Feel this… then next 💗</button>
 </div>
 
 <script>
+/* ---------- DISABLE RIGHT CLICK ---------- */
+document.addEventListener("contextmenu", e => e.preventDefault());
+
+/* ---------- AUDIO + VISUALIZER ---------- */
 const canvas = document.getElementById("visualizer");
 const ctx = canvas.getContext("2d");
-
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 const audio = document.getElementById("audio");
-const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+const AudioContext = window.AudioContext || window.webkitAudioContext;
+const audioCtx = new AudioContext();
 const source = audioCtx.createMediaElementSource(audio);
 const analyser = audioCtx.createAnalyser();
 
@@ -132,38 +136,43 @@ analyser.fftSize = 256;
 const bufferLength = analyser.frequencyBinCount;
 const dataArray = new Uint8Array(bufferLength);
 
+/* DRAW WAVES */
 function draw() {
   requestAnimationFrame(draw);
   analyser.getByteFrequencyData(dataArray);
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  const barWidth = (canvas.width / bufferLength) * 1.8;
+  const barWidth = (canvas.width / bufferLength) * 2;
   let x = 0;
 
   for (let i = 0; i < bufferLength; i++) {
-    const barHeight = dataArray[i] * 0.8;
+    const barHeight = dataArray[i] * 0.75;
     ctx.fillStyle = `rgba(255, 100, 160, ${barHeight / 255})`;
-    ctx.fillRect(
-      x,
-      canvas.height - barHeight,
-      barWidth,
-      barHeight
-    );
+    ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
     x += barWidth + 1;
   }
 }
 
-audio.addEventListener("play", () => {
+/* AUTOPLAY ON FIRST INTERACTION */
+function startAudio() {
   audioCtx.resume();
+  audio.play();
   draw();
-});
+  document.removeEventListener("click", startAudio);
+  document.removeEventListener("touchstart", startAudio);
+}
 
+document.addEventListener("click", startAudio);
+document.addEventListener("touchstart", startAudio);
+
+/* RESIZE */
 window.addEventListener("resize", () => {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 });
 
+/* NEXT */
 function goNext() {
   window.location.href = "page20.html";
 }
