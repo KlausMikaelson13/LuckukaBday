@@ -6,7 +6,6 @@
 <title>Put It Together 🧩</title>
 
 <style>
-/* RESET */
 * {
   margin: 0;
   padding: 0;
@@ -14,7 +13,6 @@
   font-family: 'Poppins', sans-serif;
 }
 
-/* BODY */
 body {
   min-height: 100vh;
   background: #fdf0f7;
@@ -24,10 +22,10 @@ body {
   color: #4a0033;
 }
 
-/* CONTAINER */
 .container {
   text-align: center;
   padding: 40px 20px;
+  max-width: 520px;
 }
 
 /* TITLE */
@@ -36,21 +34,29 @@ h1 {
   margin-bottom: 30px;
 }
 
-/* PUZZLE GRID */
+/* PUZZLE */
 .puzzle {
   display: grid;
   grid-template-columns: repeat(2, 120px);
   grid-template-rows: repeat(2, 120px);
-  gap: 8px;
+  gap: 10px;
   margin: 0 auto 30px;
 }
 
-/* PIECES */
+/* SLOT */
+.slot {
+  width: 120px;
+  height: 120px;
+  border: 2px dashed #ff85a2;
+  border-radius: 14px;
+}
+
+/* PIECE */
 .piece {
   width: 120px;
   height: 120px;
-  background-image: linear-gradient(135deg, #ff9dbb, #ffd6e8);
-  border-radius: 12px;
+  background: linear-gradient(135deg, #ff9dbb, #ffd6e8);
+  border-radius: 14px;
   cursor: grab;
   display: flex;
   justify-content: center;
@@ -59,25 +65,31 @@ h1 {
   user-select: none;
 }
 
-/* DROP ZONES */
-.slot {
-  width: 120px;
-  height: 120px;
-  border: 2px dashed #ff85a2;
-  border-radius: 12px;
+/* IMAGE REVEAL */
+.reveal {
+  display: none;
+  margin-top: 30px;
+  animation: fadeIn 1.6s ease forwards;
+}
+
+.reveal img {
+  width: 100%;
+  max-width: 360px;
+  border-radius: 18px;
+  box-shadow: 0 20px 45px rgba(0,0,0,0.25);
 }
 
 /* MESSAGE */
 .message {
-  display: none;
-  font-size: 1.3rem;
-  margin: 30px 0;
-  animation: fadeIn 1.2s ease forwards;
+  margin-top: 22px;
+  font-size: 1.25rem;
+  animation: fadeIn 2s ease forwards;
 }
 
 /* BUTTON */
 .next-btn {
   display: none;
+  margin-top: 40px;
   padding: 14px 46px;
   font-size: 1.05rem;
   border-radius: 50px;
@@ -98,7 +110,7 @@ h1 {
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(14px);
   }
   to {
     opacity: 1;
@@ -113,6 +125,7 @@ h1 {
 <div class="container">
   <h1>Put It Together 🧩</h1>
 
+  <!-- PUZZLE GRID -->
   <div class="puzzle">
     <div class="slot" data-slot="1"></div>
     <div class="slot" data-slot="2"></div>
@@ -120,6 +133,7 @@ h1 {
     <div class="slot" data-slot="4"></div>
   </div>
 
+  <!-- PIECES -->
   <div class="puzzle">
     <div class="piece" draggable="true" data-piece="1">💗</div>
     <div class="piece" draggable="true" data-piece="2">✨</div>
@@ -127,9 +141,13 @@ h1 {
     <div class="piece" draggable="true" data-piece="4">🫶</div>
   </div>
 
-  <div class="message" id="message">
-    See? When everything comes together…<br>
-    it makes something beautiful 🤍
+  <!-- IMAGE REVEAL -->
+  <div class="reveal" id="reveal">
+    <img src="lucky3.jpeg" alt="Special Memory">
+    <div class="message">
+      When everything comes together,<br>
+      it makes something beautiful 🤍
+    </div>
   </div>
 
   <button class="next-btn" id="nextBtn" onclick="goNext()">
@@ -165,7 +183,7 @@ document.querySelectorAll(".slot").forEach(slot => {
 function checkComplete() {
   const placed = document.querySelectorAll(".slot .piece").length;
   if (placed === 4) {
-    document.getElementById("message").style.display = "block";
+    document.getElementById("reveal").style.display = "block";
     document.getElementById("nextBtn").style.display = "inline-block";
   }
 }
