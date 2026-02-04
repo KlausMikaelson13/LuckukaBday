@@ -6,7 +6,6 @@
 <title>Things You Don’t See</title>
 
 <style>
-/* RESET */
 * {
   margin: 0;
   padding: 0;
@@ -14,48 +13,43 @@
   font-family: 'Poppins', sans-serif;
 }
 
-/* BODY */
 body {
   background: linear-gradient(to bottom, #12121a, #1b1b28);
   color: #f2f2f2;
   min-height: 100vh;
 }
 
-/* CONTAINER */
 .container {
-  max-width: 700px;
+  max-width: 720px;
   margin: 0 auto;
-  padding: 80px 24px 120px;
+  padding: 90px 24px 140px;
 }
 
-/* TITLE */
 h1 {
   text-align: center;
   font-size: clamp(1.8rem, 4vw, 2.4rem);
-  margin-bottom: 80px;
+  margin-bottom: 90px;
   font-weight: 500;
+  opacity: 0.9;
 }
 
-/* LINES */
 .line {
-  font-size: clamp(1.2rem, 3vw, 1.45rem);
-  line-height: 1.8;
-  margin-bottom: 60px;
+  font-size: clamp(1.15rem, 3vw, 1.45rem);
+  line-height: 1.9;
+  margin-bottom: 70px;
   opacity: 0;
-  transform: translateY(20px);
+  transform: translateY(22px);
   transition: opacity 1.2s ease, transform 1.2s ease;
 }
 
-/* REVEALED */
 .line.show {
   opacity: 1;
   transform: translateY(0);
 }
 
-/* BUTTON */
 .next-btn {
   display: block;
-  margin: 120px auto 0;
+  margin: 140px auto 0;
   padding: 14px 46px;
   font-size: 1.05rem;
   border-radius: 50px;
@@ -79,37 +73,40 @@ h1 {
 <div class="container">
   <h1>Things you don’t see about yourself</h1>
 
-  <div class="line">You don’t see how your presence calms a room.</div>
-
   <div class="line">
-    You don’t see how people feel lighter after talking to you.
+    You’re actually full of life.<br>
+    Even on days you say you’re tired of everything.
   </div>
 
   <div class="line">
-    You don’t see how strong you are for showing up,
-    even on days you feel empty.
+    Haan, sometimes you do make shitty choices.<br>
+    Life decisions ho, Instagram songs ho, ya captions.
   </div>
 
   <div class="line">
-    You don’t see how your laughter fixes moments
-    you never meant to heal.
+    But honestly?<br>
+    That’s also very you.
   </div>
 
   <div class="line">
-    You don’t see how deeply you are loved,
-    even in your quiet.
+    At least you don’t pretend to be someone else.<br>
+    At least you don’t fake a personality just to fit in.
   </div>
 
   <div class="line">
-    And you definitely don’t see how easy it is
-    to care about you.
+    Baddie nahi hai tu.<br>
+    Aur banne ki koshish mat kiya kar.
   </div>
 
-  <button class="next-btn" onclick="goNext()">One last thing 🤍</button>
+  <div class="line">
+    The real you — awkward, loud, soft, confused, funny —<br>
+    that version is already enough.
+  </div>
+
+  <button class="next-btn" onclick="goNext()">I see you 🤍</button>
 </div>
 
 <script>
-/* REVEAL ON SCROLL */
 const lines = document.querySelectorAll(".line");
 
 const observer = new IntersectionObserver(
@@ -120,7 +117,7 @@ const observer = new IntersectionObserver(
       }
     });
   },
-  { threshold: 0.3 }
+  { threshold: 0.35 }
 );
 
 lines.forEach(line => observer.observe(line));
