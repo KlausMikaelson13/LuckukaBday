@@ -3,10 +3,9 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Your Turn 🤍</title>
+<title>Ishq Hai 🎶</title>
 
 <style>
-/* RESET */
 * {
   margin: 0;
   padding: 0;
@@ -14,56 +13,70 @@
   font-family: 'Poppins', sans-serif;
 }
 
-/* BODY */
 body {
-  min-height: 100vh;
-  background: linear-gradient(135deg, #f8f3ff, #fff6fb);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #4a0033;
-  text-align: center;
+  height: 100vh;
+  background: #0f0f16;
+  overflow: hidden;
+  color: #fff;
 }
 
-/* CONTAINER */
+/* CANVAS (AUDIO WAVES) */
+canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+}
+
+/* CONTENT */
 .container {
-  max-width: 650px;
-  width: 90%;
-  padding: 40px 25px;
+  position: relative;
+  z-index: 2;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 30px 20px;
+}
+
+/* IMAGE */
+.image-wrapper {
+  width: 260px;
+  height: 260px;
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.5);
+  margin-bottom: 30px;
+}
+
+.image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 /* TITLE */
 h1 {
-  font-size: clamp(2rem, 5vw, 2.6rem);
-  margin-bottom: 14px;
+  font-size: 1.8rem;
+  margin-bottom: 6px;
 }
 
-p {
-  font-size: 1.05rem;
-  margin-bottom: 30px;
-  opacity: 0.85;
-}
-
-/* TEXTAREA */
-textarea {
-  width: 100%;
-  min-height: 160px;
-  padding: 16px 18px;
-  border-radius: 16px;
-  border: 2px solid #ffd1e3;
+.subtitle {
   font-size: 1rem;
-  resize: vertical;
-  outline: none;
+  opacity: 0.75;
+  margin-bottom: 25px;
 }
 
-textarea:focus {
-  border-color: #ff4f8b;
+/* AUDIO */
+audio {
+  width: 280px;
+  margin-bottom: 40px;
 }
 
-/* BUTTONS */
-.btn {
-  margin-top: 25px;
-  padding: 14px 44px;
+/* BUTTON */
+.next-btn {
+  padding: 14px 46px;
   font-size: 1.05rem;
   border-radius: 50px;
   border: none;
@@ -74,78 +87,83 @@ textarea:focus {
   box-shadow: 0 12px 30px rgba(255, 79, 139, 0.35);
 }
 
-.btn:hover {
+.next-btn:hover {
   transform: translateY(-3px) scale(1.05);
-  box-shadow: 0 18px 40px rgba(255, 79, 139, 0.55);
-}
-
-/* CONFIRMATION */
-.confirmation {
-  display: none;
-  margin-top: 20px;
-  font-size: 1rem;
-  color: #0a7a3b;
-  animation: fadeIn 1s ease forwards;
-}
-
-/* ANIMATION */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 </style>
 </head>
 
 <body>
 
+<canvas id="visualizer"></canvas>
+
 <div class="container">
-  <h1>Your turn 🤍</h1>
-  <p>
-    You don’t have to overthink this.<br>
-    Just write whatever feels right.
-  </p>
-
-  <textarea id="messageInput" placeholder="Write your message here…"></textarea>
-
-  <br>
-  <button class="btn" onclick="saveMessage()">Save my message 💌</button>
-
-  <div class="confirmation" id="confirmation">
-    Your message is saved safely 🤍
+  <div class="image-wrapper">
+    <img src="lucky5.jpeg" alt="Lucky">
   </div>
 
-  <br>
-  <button class="btn" onclick="goNext()">Continue ➜</button>
+  <h1>Ishq Hai 🤍</h1>
+  <div class="subtitle">Some feelings sound better.</div>
+
+  <audio id="audio" controls>
+    <source src="ishqhai.mp3" type="audio/mpeg">
+    Your browser does not support audio.
+  </audio>
+
+  <button class="next-btn" onclick="goNext()">Feel this… then next 💗</button>
 </div>
 
 <script>
-const textarea = document.getElementById("messageInput");
-const confirmation = document.getElementById("confirmation");
+const canvas = document.getElementById("visualizer");
+const ctx = canvas.getContext("2d");
 
-/* LOAD SAVED MESSAGE (if any) */
-const saved = localStorage.getItem("herMessage");
-if (saved) {
-  textarea.value = saved;
-}
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
-/* SAVE MESSAGE */
-function saveMessage() {
-  const text = textarea.value.trim();
-  if (!text) {
-    alert("Write something first 🤍");
-    return;
+const audio = document.getElementById("audio");
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+const source = audioCtx.createMediaElementSource(audio);
+const analyser = audioCtx.createAnalyser();
+
+source.connect(analyser);
+analyser.connect(audioCtx.destination);
+analyser.fftSize = 256;
+
+const bufferLength = analyser.frequencyBinCount;
+const dataArray = new Uint8Array(bufferLength);
+
+function draw() {
+  requestAnimationFrame(draw);
+  analyser.getByteFrequencyData(dataArray);
+
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  const barWidth = (canvas.width / bufferLength) * 1.8;
+  let x = 0;
+
+  for (let i = 0; i < bufferLength; i++) {
+    const barHeight = dataArray[i] * 0.8;
+    ctx.fillStyle = `rgba(255, 100, 160, ${barHeight / 255})`;
+    ctx.fillRect(
+      x,
+      canvas.height - barHeight,
+      barWidth,
+      barHeight
+    );
+    x += barWidth + 1;
   }
-  localStorage.setItem("herMessage", text);
-  confirmation.style.display = "block";
 }
 
-/* NEXT PAGE */
+audio.addEventListener("play", () => {
+  audioCtx.resume();
+  draw();
+});
+
+window.addEventListener("resize", () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
+
 function goNext() {
   window.location.href = "page20.html";
 }
