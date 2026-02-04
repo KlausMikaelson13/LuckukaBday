@@ -25,7 +25,7 @@ body {
 .container {
   text-align: center;
   padding: 40px 20px;
-  max-width: 520px;
+  max-width: 600px;
 }
 
 h1 {
@@ -33,12 +33,12 @@ h1 {
   margin-bottom: 30px;
 }
 
-/* PUZZLE WRAPPER */
+/* PUZZLE WRAPPER (BIGGER) */
 .puzzle-wrapper {
   position: relative;
-  width: 300px;
-  height: 300px;
-  margin: 0 auto 30px;
+  width: 360px;
+  height: 360px;
+  margin: 0 auto 35px;
 }
 
 /* PUZZLE GRID */
@@ -46,7 +46,7 @@ h1 {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, 1fr);
-  gap: 8px;
+  gap: 10px;
   width: 100%;
   height: 100%;
 }
@@ -54,28 +54,28 @@ h1 {
 /* SLOT */
 .slot {
   border: 2px dashed #ff85a2;
-  border-radius: 14px;
+  border-radius: 16px;
 }
 
 /* PIECES */
 .pieces {
   display: flex;
   justify-content: center;
-  gap: 12px;
-  margin-bottom: 20px;
+  gap: 14px;
+  margin-bottom: 24px;
   flex-wrap: wrap;
 }
 
 .piece {
-  width: 120px;
-  height: 120px;
+  width: 150px;
+  height: 150px;
   background: linear-gradient(135deg, #ff9dbb, #ffd6e8);
-  border-radius: 14px;
+  border-radius: 16px;
   cursor: grab;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2rem;
+  font-size: 2.2rem;
   user-select: none;
 }
 
@@ -90,14 +90,14 @@ h1 {
   opacity: 0;
   pointer-events: none;
   transition: opacity 1.6s ease;
-  border-radius: 16px;
+  border-radius: 18px;
 }
 
 .overlay-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 16px;
+  border-radius: 18px;
 }
 
 .overlay-image.show {
@@ -107,9 +107,9 @@ h1 {
 /* MESSAGE */
 .message {
   opacity: 0;
-  transform: translateY(14px);
-  font-size: 1.25rem;
-  margin-top: 22px;
+  transform: translateY(16px);
+  font-size: 1.3rem;
+  margin-top: 26px;
   transition: opacity 1.4s ease, transform 1.4s ease;
 }
 
@@ -121,7 +121,7 @@ h1 {
 /* BUTTON */
 .next-btn {
   display: none;
-  margin-top: 35px;
+  margin-top: 40px;
   padding: 14px 46px;
   font-size: 1.05rem;
   border-radius: 50px;
