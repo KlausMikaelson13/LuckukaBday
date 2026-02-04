@@ -28,30 +28,44 @@ body {
   max-width: 520px;
 }
 
-/* TITLE */
 h1 {
   font-size: 2.2rem;
   margin-bottom: 30px;
 }
 
-/* PUZZLE */
+/* PUZZLE WRAPPER */
+.puzzle-wrapper {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  margin: 0 auto 30px;
+}
+
+/* PUZZLE GRID */
 .puzzle {
   display: grid;
-  grid-template-columns: repeat(2, 120px);
-  grid-template-rows: repeat(2, 120px);
-  gap: 10px;
-  margin: 0 auto 30px;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 8px;
+  width: 100%;
+  height: 100%;
 }
 
 /* SLOT */
 .slot {
-  width: 120px;
-  height: 120px;
   border: 2px dashed #ff85a2;
   border-radius: 14px;
 }
 
-/* PIECE */
+/* PIECES */
+.pieces {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
 .piece {
   width: 120px;
   height: 120px;
@@ -59,37 +73,55 @@ h1 {
   border-radius: 14px;
   cursor: grab;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   font-size: 2rem;
   user-select: none;
 }
 
-/* IMAGE REVEAL */
-.reveal {
-  display: none;
-  margin-top: 30px;
-  animation: fadeIn 1.6s ease forwards;
+/* OVERLAY IMAGE */
+.overlay-image {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1.6s ease;
+  border-radius: 16px;
 }
 
-.reveal img {
+.overlay-image img {
   width: 100%;
-  max-width: 360px;
-  border-radius: 18px;
-  box-shadow: 0 20px 45px rgba(0,0,0,0.25);
+  height: 100%;
+  object-fit: cover;
+  border-radius: 16px;
+}
+
+.overlay-image.show {
+  opacity: 1;
 }
 
 /* MESSAGE */
 .message {
-  margin-top: 22px;
+  opacity: 0;
+  transform: translateY(14px);
   font-size: 1.25rem;
-  animation: fadeIn 2s ease forwards;
+  margin-top: 22px;
+  transition: opacity 1.4s ease, transform 1.4s ease;
+}
+
+.message.show {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* BUTTON */
 .next-btn {
   display: none;
-  margin-top: 40px;
+  margin-top: 35px;
   padding: 14px 46px;
   font-size: 1.05rem;
   border-radius: 50px;
@@ -103,19 +135,6 @@ h1 {
 
 .next-btn:hover {
   transform: translateY(-3px) scale(1.05);
-  box-shadow: 0 18px 40px rgba(255, 79, 139, 0.55);
-}
-
-/* ANIMATION */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(14px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 </style>
 </head>
@@ -125,29 +144,35 @@ h1 {
 <div class="container">
   <h1>Put It Together 🧩</h1>
 
-  <!-- PUZZLE GRID -->
-  <div class="puzzle">
-    <div class="slot" data-slot="1"></div>
-    <div class="slot" data-slot="2"></div>
-    <div class="slot" data-slot="3"></div>
-    <div class="slot" data-slot="4"></div>
+  <!-- PUZZLE + OVERLAY -->
+  <div class="puzzle-wrapper">
+
+    <div class="puzzle">
+      <div class="slot" data-slot="1"></div>
+      <div class="slot" data-slot="2"></div>
+      <div class="slot" data-slot="3"></div>
+      <div class="slot" data-slot="4"></div>
+    </div>
+
+    <!-- OVERLAY IMAGE -->
+    <div class="overlay-image" id="overlay">
+      <img src="lucky3.jpeg" alt="Final Reveal">
+    </div>
+
   </div>
 
   <!-- PIECES -->
-  <div class="puzzle">
+  <div class="pieces">
+    <div class="piece" draggable="true" data-piece="3">✨</div>
     <div class="piece" draggable="true" data-piece="1">💗</div>
-    <div class="piece" draggable="true" data-piece="2">✨</div>
-    <div class="piece" draggable="true" data-piece="3">🌸</div>
     <div class="piece" draggable="true" data-piece="4">🫶</div>
+    <div class="piece" draggable="true" data-piece="2">🌸</div>
   </div>
 
-  <!-- IMAGE REVEAL -->
-  <div class="reveal" id="reveal">
-    <img src="lucky3.jpeg" alt="Special Memory">
-    <div class="message">
-      When everything comes together,<br>
-      it makes something beautiful 🤍
-    </div>
+  <!-- MESSAGE -->
+  <div class="message" id="message">
+    When everything comes together,<br>
+    it makes something beautiful 🤍
   </div>
 
   <button class="next-btn" id="nextBtn" onclick="goNext()">
@@ -183,8 +208,19 @@ document.querySelectorAll(".slot").forEach(slot => {
 function checkComplete() {
   const placed = document.querySelectorAll(".slot .piece").length;
   if (placed === 4) {
-    document.getElementById("reveal").style.display = "block";
-    document.getElementById("nextBtn").style.display = "inline-block";
+    const overlay = document.getElementById("overlay");
+    const message = document.getElementById("message");
+    const nextBtn = document.getElementById("nextBtn");
+
+    overlay.classList.add("show");
+
+    setTimeout(() => {
+      message.classList.add("show");
+    }, 800);
+
+    setTimeout(() => {
+      nextBtn.style.display = "inline-block";
+    }, 1600);
   }
 }
 
