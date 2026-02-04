@@ -6,7 +6,6 @@
 <title>This Is So You 😆</title>
 
 <style>
-/* RESET */
 * {
   margin: 0;
   padding: 0;
@@ -14,25 +13,23 @@
   font-family: 'Poppins', sans-serif;
 }
 
-/* BODY */
 body {
   min-height: 100vh;
   background: linear-gradient(135deg, #fff0f7, #ffe3ef);
   color: #4a0033;
 }
 
-/* CONTAINER */
 .container {
   max-width: 900px;
   margin: 0 auto;
-  padding: 50px 20px 80px;
+  padding: 50px 20px 90px;
 }
 
 /* TITLE */
 h1 {
   text-align: center;
   font-size: clamp(2rem, 5vw, 2.6rem);
-  margin-bottom: 50px;
+  margin-bottom: 60px;
 }
 
 /* SECTION */
@@ -44,36 +41,43 @@ h1 {
 /* SECTION TITLE */
 .section h2 {
   font-size: 1.6rem;
-  margin-bottom: 20px;
+  margin-bottom: 18px;
 }
 
-/* GIF CARD */
-.gif-card {
+/* MEDIA CARD */
+.card {
   background: white;
   border-radius: 18px;
-  padding: 18px;
+  padding: 16px;
   box-shadow: 0 15px 35px rgba(0,0,0,0.15);
   display: inline-block;
   animation: popIn 0.8s ease;
 }
 
-.gif {
+.media {
   width: 100%;
   max-width: 420px;
   height: 240px;
-  background: #ffd6e8;
+  background: #000;
   border-radius: 12px;
+  overflow: hidden;
   display: flex;
-  justify-content: center;
   align-items: center;
-  font-size: 1.1rem;
-  color: #7a003d;
+  justify-content: center;
 }
 
-/* NEXT BUTTON */
+/* BEST FIT MEDIA */
+.media img,
+.media video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* BUTTON */
 .next-btn {
   display: block;
-  margin: 0 auto;
+  margin: 60px auto 0;
   padding: 14px 46px;
   font-size: 1.05rem;
   border-radius: 50px;
@@ -94,7 +98,7 @@ h1 {
 @keyframes popIn {
   from {
     opacity: 0;
-    transform: scale(0.8) rotate(-3deg);
+    transform: scale(0.85) rotate(-2deg);
   }
   to {
     opacity: 1;
@@ -109,24 +113,63 @@ h1 {
 <div class="container">
   <h1>Extremely Accurate Representations 😆</h1>
 
+  <!-- HUNGRY -->
   <div class="section">
     <h2>You when hungry 🍔</h2>
-    <div class="gif-card">
-      <div class="gif">[Insert chaotic hungry GIF here 😭]</div>
+    <div class="card">
+      <div class="media">
+        <video src="luckyburger.mp4" autoplay muted loop playsinline></video>
+      </div>
     </div>
   </div>
 
+  <!-- SLEEPY -->
   <div class="section">
     <h2>You when sleepy 😴</h2>
-    <div class="gif-card">
-      <div class="gif">[Insert sleepy potato GIF here 🥱]</div>
+    <div class="card">
+      <div class="media">
+        <img src="luckysleepy.jpg" alt="Sleepy Lucky">
+      </div>
     </div>
   </div>
 
+  <!-- CHATPATE GAANE -->
   <div class="section">
-    <h2>You when annoyed 😤</h2>
-    <div class="gif-card">
-      <div class="gif">[Insert dramatic annoyed GIF here 🤦‍♀️]</div>
+    <h2>You when chatpate gaane 💃🔥</h2>
+    <div class="card">
+      <div class="media">
+        <video src="luckydance.mp4" autoplay muted loop playsinline></video>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7 BAJE COLLEGE -->
+  <div class="section">
+    <h2>You when 7 baje college 😭</h2>
+    <div class="card">
+      <div class="media">
+        <img src="lucky4.jpeg" alt="College Mode">
+      </div>
+    </div>
+  </div>
+
+  <!-- SLAY -->
+  <div class="section">
+    <h2>You when slay 💅✨</h2>
+    <div class="card">
+      <div class="media">
+        <img src="lucky6.jpeg" alt="Slay Mode">
+      </div>
+    </div>
+  </div>
+
+  <!-- SERVED -->
+  <div class="section">
+    <h2>You when served 😮‍🔥</h2>
+    <div class="card">
+      <div class="media">
+        <img src="luckyhot.jpeg" alt="Served">
+      </div>
     </div>
   </div>
 
