@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Page 10 🤍</title>
 
-<!-- Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
 
 <style>
@@ -35,7 +34,6 @@ body {
 .heart {
   position: absolute;
   bottom: -40px;
-  font-size: 18px;
   color: rgba(255,111,174,0.35);
   animation: floatUp linear infinite;
 }
@@ -67,7 +65,7 @@ body {
   font-size: 1.35rem;
   line-height: 1.9;
   white-space: pre-line;
-  min-height: 280px;
+  min-height: 300px;
 }
 
 /* Cursor */
@@ -103,20 +101,11 @@ body {
 .next-btn:hover {
   transform: translateY(-3px) scale(1.05);
 }
-
-/* Mobile */
-@media (max-width: 600px) {
-  .typewriter {
-    font-size: 1.15rem;
-    line-height: 1.8;
-  }
-}
 </style>
 </head>
 
 <body>
 
-<!-- HEARTS CONTAINER -->
 <div id="hearts"></div>
 
 <div class="container">
@@ -129,24 +118,20 @@ body {
 </div>
 
 <script>
-/* ---------- HEART GENERATOR ---------- */
-const heartContainer = document.getElementById("hearts");
-
+/* HEARTS */
 function createHeart() {
   const heart = document.createElement("div");
   heart.className = "heart";
   heart.innerText = "❤";
   heart.style.left = Math.random() * 100 + "vw";
-  heart.style.animationDuration = 6 + Math.random() * 4 + "s";
   heart.style.fontSize = 12 + Math.random() * 18 + "px";
-  heartContainer.appendChild(heart);
-
+  heart.style.animationDuration = 6 + Math.random() * 4 + "s";
+  document.getElementById("hearts").appendChild(heart);
   setTimeout(() => heart.remove(), 10000);
 }
+setInterval(createHeart, 800);
 
-setInterval(createHeart, 700);
-
-/* ---------- TYPEWRITER TEXT ---------- */
+/* TYPEWRITER (FIXED) */
 const lines = [
   "You’re actually full of life.",
   "",
@@ -172,33 +157,35 @@ const textEl = document.getElementById("text");
 const cursor = document.getElementById("cursor");
 const nextBtn = document.getElementById("nextBtn");
 
-let lineIndex = 0;
-let charIndex = 0;
+let line = 0;
+let char = 0;
 const speed = 45;
-const pauseBetweenLines = 700;
+const linePause = 650;
 
-function typeText() {
-  if (lineIndex >= lines.length) {
+function typeWriter() {
+  if (line >= lines.length) {
     cursor.style.display = "none";
     nextBtn.style.display = "inline-block";
     return;
   }
 
-  if (charIndex < lines[lineIndex].length) {
-    textEl.innerHTML += lines[lineIndex].charAt(charIndex);
-    charIndex++;
-    setTimeout(typeText, speed);
+  const currentLine = lines[line];
+
+  if (char < currentLine.length) {
+    textEl.innerHTML += currentLine.charAt(char);
+    char++;
+    setTimeout(typeWriter, speed);
   } else {
     textEl.innerHTML += "\n";
-    lineIndex++;
-    charIndex = 0;
-    setTimeout(typeText, pauseBetweenLines);
+    line++;
+    char = 0;
+    setTimeout(typeWriter, linePause);
   }
 }
 
-typeText();
+typeWriter();
 
-/* ---------- NEXT ---------- */
+/* NEXT */
 function goNext() {
   window.location.href = "page11.html";
 }
