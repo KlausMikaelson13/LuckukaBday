@@ -10,9 +10,7 @@
 
 <style>
 :root {
-  --bg-dark: #16161f;
-  --bg-soft: #242436;
-  --text-main: #f3f3f3;
+  --text-main: #ffffff;
   --pink: #ff6fae;
 }
 
@@ -23,7 +21,12 @@
 body {
   margin: 0;
   min-height: 100vh;
-  background: linear-gradient(135deg, var(--bg-dark), var(--bg-soft));
+  background:
+    linear-gradient(
+      rgba(0,0,0,0.45),
+      rgba(0,0,0,0.45)
+    ),
+    url("cartoon-road.jpg") center/cover no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -36,28 +39,36 @@ body {
   text-align: center;
 }
 
-/* Stanza */
-.stanza {
+/* Typewriter Text */
+.typewriter {
   font-family: 'Pacifico', cursive;
   color: var(--text-main);
   font-size: 1.45rem;
   line-height: 2;
-  margin-bottom: 36px;
-  opacity: 0;
-  animation: fadeInUp 2.2s ease forwards;
+  white-space: pre-line;
+  min-height: 260px;
 }
 
-/* Staggered animation */
-.stanza:nth-child(1) { animation-delay: 0.5s; }
-.stanza:nth-child(2) { animation-delay: 1.6s; }
-.stanza:nth-child(3) { animation-delay: 2.7s; }
-.stanza:nth-child(4) { animation-delay: 3.8s; }
-.stanza:nth-child(5) { animation-delay: 4.9s; }
+/* Cursor */
+.cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1.2em;
+  background: var(--pink);
+  margin-left: 4px;
+  animation: blink 1s infinite;
+  vertical-align: bottom;
+}
 
-/* Next Button */
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+/* Button */
 .next-btn {
-  opacity: 0;
-  margin-top: 20px;
+  display: none;
+  margin-top: 30px;
   padding: 14px 42px;
   font-size: 1.1rem;
   border: none;
@@ -67,8 +78,6 @@ body {
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 12px 22px rgba(255,111,174,0.35);
-  animation: fadeIn 1.8s ease forwards;
-  animation-delay: 6.2s; /* appears after text finishes */
 }
 
 .next-btn:hover {
@@ -76,26 +85,9 @@ body {
   box-shadow: 0 18px 30px rgba(255,111,174,0.5);
 }
 
-/* Animations */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(14px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
 /* Mobile */
 @media (max-width: 600px) {
-  .stanza {
+  .typewriter {
     font-size: 1.2rem;
     line-height: 1.8;
   }
@@ -106,52 +98,75 @@ body {
 <body>
 
 <div class="container">
+  <div class="typewriter" id="text"></div>
+  <span class="cursor" id="cursor"></span>
 
-  <div class="stanza">
-    The day I don’t speak to you,<br>
-    the hours feel heavier,<br>
-    like something important is missing<br>
-    from between my breaths.<br>
-    The day feels full, yet empty.
-  </div>
-
-  <div class="stanza">
-    The day I don’t see<br>
-    Lucky k naam ka notification,<br>
-    my phone feels too quiet,<br>
-    and somehow I keep checking it<br>
-    like it forgot to do its job.
-  </div>
-
-  <div class="stanza">
-    The day I don’t receive<br>
-    Lucky ka call,<br>
-    my ears stop listening to everyone else.<br>
-    Vo awaaz na ho toh<br>
-    baaki sab noise lagta hai.
-  </div>
-
-  <div class="stanza">
-    The day I don’t flirt with you,<br>
-    my flirting skills go straight<br>
-    into aura minus.<br>
-    Like confidence took a day off<br>
-    because you weren’t there.
-  </div>
-
-  <div class="stanza">
-    And the day I don’t see<br>
-    your sent pic in my DM,<br>
-    my eyes refuse to shut.<br>
-    Sleep comes late,<br>
-    because they’re still waiting for you.
-  </div>
-
-  <button class="next-btn" onclick="goNext()">Next →</button>
-
+  <button class="next-btn" id="nextBtn" onclick="goNext()">Next →</button>
 </div>
 
 <script>
+const stanzas = [
+`The day I don’t speak to you,
+the hours feel heavier,
+like something important is missing
+from between my breaths.
+The day feels full, yet empty.`,
+
+`The day I don’t see
+Lucky k naam ka notification,
+my phone feels too quiet,
+and somehow I keep checking it
+like it forgot to do its job.`,
+
+`The day I don’t receive
+Lucky ka call,
+my ears stop listening to everyone else.
+Vo awaaz na ho toh
+baaki sab noise lagta hai.`,
+
+`The day I don’t flirt with you,
+my flirting skills go straight
+into aura minus.
+Like confidence took a day off
+because you weren’t there.`,
+
+`And the day I don’t see
+your sent pic in my DM,
+my eyes refuse to shut.
+Sleep comes late,
+because they’re still waiting for you.`
+];
+
+const textEl = document.getElementById("text");
+const cursor = document.getElementById("cursor");
+const nextBtn = document.getElementById("nextBtn");
+
+let stanzaIndex = 0;
+let charIndex = 0;
+const speed = 45;
+const pauseBetweenStanzas = 900;
+
+function typeStanza() {
+  if (stanzaIndex >= stanzas.length) {
+    cursor.style.display = "none";
+    nextBtn.style.display = "inline-block";
+    return;
+  }
+
+  if (charIndex < stanzas[stanzaIndex].length) {
+    textEl.innerHTML += stanzas[stanzaIndex].charAt(charIndex);
+    charIndex++;
+    setTimeout(typeStanza, speed);
+  } else {
+    textEl.innerHTML += "\n\n";
+    stanzaIndex++;
+    charIndex = 0;
+    setTimeout(typeStanza, pauseBetweenStanzas);
+  }
+}
+
+typeStanza();
+
 function goNext() {
   window.location.href = "page10.html";
 }
