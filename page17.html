@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>A Promise</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+
 <style>
 /* RESET */
 * {
@@ -26,19 +28,55 @@ body {
   overflow: hidden;
 }
 
+/* LOVE PARTICLES */
+.love {
+  position: fixed;
+  bottom: -30px;
+  color: rgba(255, 105, 180, 0.35);
+  animation: floatUp linear infinite;
+  pointer-events: none;
+}
+
+@keyframes floatUp {
+  from {
+    transform: translateY(0) scale(0.7);
+    opacity: 0;
+  }
+  20% { opacity: 1; }
+  to {
+    transform: translateY(-120vh) scale(1.2);
+    opacity: 0;
+  }
+}
+
 /* CONTAINER */
 .container {
-  max-width: 600px;
+  max-width: 620px;
   padding: 40px 30px;
   animation: fadeInSlow 3s ease forwards;
+  z-index: 2;
 }
 
 /* TEXT */
 .promise {
   font-size: clamp(1.6rem, 3.5vw, 2rem);
   line-height: 1.9;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.4px;
   opacity: 0.95;
+  animation: heartbeat 6s ease-in-out infinite;
+}
+
+.promise span {
+  display: block;
+  margin-top: 18px;
+  font-size: 1.15rem;
+  opacity: 0.85;
+}
+
+/* HEARTBEAT */
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.015); }
 }
 
 /* BUTTON */
@@ -76,16 +114,40 @@ body {
 
 <body>
 
+<!-- LOVE EFFECTS -->
+<div id="loveLayer"></div>
+
 <div class="container">
   <div class="promise">
     I can’t promise perfection.<br><br>
     But I promise presence.
+    
+    <span>
+      To listen when you don’t know what to say.<br>
+      To stay when things feel heavy.<br>
+      To be there — not loudly, not perfectly —<br>
+      just honestly.
+    </span>
   </div>
 
   <button class="next-btn" onclick="goNext()">Stay.</button>
 </div>
 
 <script>
+/* LOVE PARTICLES */
+function createLove() {
+  const el = document.createElement("div");
+  el.className = "love";
+  el.innerText = Math.random() > 0.5 ? "❤" : "✦";
+  el.style.left = Math.random() * 100 + "vw";
+  el.style.fontSize = 12 + Math.random() * 18 + "px";
+  el.style.animationDuration = 7 + Math.random() * 4 + "s";
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 12000);
+}
+setInterval(createLove, 800);
+
+/* NEXT */
 function goNext() {
   window.location.href = "page18.html";
 }
