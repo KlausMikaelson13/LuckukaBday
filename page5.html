@@ -170,7 +170,8 @@ body {
       <div class="media">
         <img src="luckymihir.jpg">
         <div class="overlay">
-          The first time we met<br>
+          The first time we laughed without knowing<br>
+          this would become a habit 💗
         </div>
       </div>
     </div>
@@ -180,7 +181,7 @@ body {
   <div class="memory" id="m3">
     <div class="polaroid">
       <div class="media">
-        <video src="luckycringe.mp4" autoplay muted loop playsinline></video>
+        <video id="finalVideo" src="luckycringe.mp4" autoplay muted playsinline></video>
         <div class="overlay">
           I miss my cringe Lucky 😭💗
         </div>
@@ -194,15 +195,16 @@ body {
 <script>
 const intro = document.getElementById("intro");
 const memories = [
-  document.getElementById("m1"),
-  document.getElementById("m2"),
-  document.getElementById("m3")
+  { el: document.getElementById("m1"), duration: 15000 },
+  { el: document.getElementById("m2"), duration: 10000 },
+  { el: document.getElementById("m3"), duration: null } // video-based
 ];
 const nextBtn = document.getElementById("nextBtn");
+const finalVideo = document.getElementById("finalVideo");
 
 let current = 0;
 
-/* INTRO SEQUENCE */
+/* INTRO */
 setTimeout(() => intro.classList.add("fade-out"), 2500);
 
 setTimeout(() => {
@@ -211,29 +213,39 @@ setTimeout(() => {
 }, 4200);
 
 /* MEMORY PLAYER */
-function playMemory(i) {
-  const mem = memories[i];
-  const text = mem.querySelector(".overlay");
+function playMemory(index) {
+  const mem = memories[index].el;
+  const overlay = mem.querySelector(".overlay");
 
-  mem.classList.add("show");
+  mem.style.display = "block";
+  requestAnimationFrame(() => mem.classList.add("show"));
 
-  setTimeout(() => text.classList.add("show"), 1200);
+  setTimeout(() => overlay.classList.add("show"), 1200);
 
-  setTimeout(() => {
-    text.classList.remove("show");
-    mem.classList.add("hide");
-  }, 5200);
+  if (memories[index].duration) {
+    setTimeout(() => endMemory(mem, overlay), memories[index].duration);
+  } else {
+    finalVideo.addEventListener("ended", () => {
+      endMemory(mem, overlay, true);
+    }, { once: true });
+  }
+}
+
+function endMemory(mem, overlay, isLast = false) {
+  overlay.classList.remove("show");
+  mem.classList.add("hide");
 
   setTimeout(() => {
     mem.classList.remove("show", "hide");
     mem.style.display = "none";
     current++;
+
     if (current < memories.length) {
       playMemory(current);
     } else {
       nextBtn.classList.add("show");
     }
-  }, 7000);
+  }, 1800);
 }
 
 function goNext() {
