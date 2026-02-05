@@ -2,85 +2,101 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Ishq Hai 🎶</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Page 19 🤍</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap" rel="stylesheet">
 
 <style>
+:root {
+  --pink: #ff6fae;
+  --text: #f3f3f3;
+}
+
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
-  user-select: none;
 }
 
 body {
-  height: 100vh;
-  background: #0f0f16;
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f0f16, #1b1b2b);
+  color: var(--text);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+  text-align: center;
   overflow: hidden;
-  color: #fff;
 }
 
-/* CANVAS (AUDIO WAVES) */
+/* CANVAS */
 canvas {
   position: fixed;
   inset: 0;
   z-index: 0;
 }
 
-/* CONTENT */
+/* CONTAINER */
 .container {
   position: relative;
   z-index: 2;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 30px 20px;
+  max-width: 520px;
 }
 
 /* IMAGE */
-.image-wrapper {
-  width: 260px;
-  height: 260px;
-  border-radius: 22px;
+.photo {
+  width: 100%;
+  max-width: 320px;
+  border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 25px 60px rgba(0,0,0,0.5);
-  margin-bottom: 30px;
+  margin: 0 auto 25px;
+  cursor: pointer;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.5);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.photo img {
+  width: 100%;
+  display: block;
   pointer-events: none;
 }
 
-.image-wrapper img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+/* ACTIVE IMAGE */
+.photo.active {
+  transform: scale(1.05);
+  box-shadow: 0 0 35px rgba(255,111,174,0.65);
 }
 
-/* TITLE */
-h1 {
-  font-size: 1.8rem;
-  margin-bottom: 6px;
-}
-
-.subtitle {
+/* HINT */
+.hint {
   font-size: 1rem;
   opacity: 0.75;
-  margin-bottom: 35px;
+  margin-bottom: 30px;
+  transition: opacity 0.6s ease;
+}
+
+.hint.hide {
+  opacity: 0;
 }
 
 /* BUTTON */
 .next-btn {
+  display: none;
+  margin-top: 20px;
   padding: 14px 46px;
   font-size: 1.05rem;
   border-radius: 50px;
   border: none;
-  background: linear-gradient(135deg, #ff4f8b, #ff85a2);
-  color: white;
+  background: linear-gradient(135deg, var(--pink), #ff9bc7);
+  color: #fff;
   cursor: pointer;
+  box-shadow: 0 12px 30px rgba(255,111,174,0.35);
   transition: all 0.35s ease;
-  box-shadow: 0 12px 30px rgba(255, 79, 139, 0.35);
+}
+
+.next-btn.show {
+  display: inline-block;
 }
 
 .next-btn:hover {
@@ -89,43 +105,41 @@ h1 {
 </style>
 </head>
 
-<body oncontextmenu="return false">
+<body>
 
 <canvas id="visualizer"></canvas>
 
 <div class="container">
-  <div class="image-wrapper">
-    <img src="lucky5.jpeg" alt="Lucky" draggable="false">
+
+  <!-- IMAGE -->
+  <div class="photo" id="photo">
+    <img src="lucky5.jpeg" alt="The most beautiful thing">
   </div>
 
-  <h1>Ishq Hai 🤍</h1>
-  <div class="subtitle">Some feelings don’t need words.</div>
+  <!-- HINT -->
+  <div class="hint" id="hint">
+    Tap on the most beautiful thing on this page to continue 🤍
+  </div>
 
-  <!-- AUDIO (hidden controls, auto-loop) -->
-  <audio
-    id="audio"
-    src="ishqhai.mp3"
-    loop
-    preload="auto"
-    controlslist="nodownload"
-  ></audio>
+  <!-- NEXT -->
+  <button class="next-btn" id="nextBtn" onclick="goNext()">Next →</button>
 
-  <button class="next-btn" onclick="goNext()">Feel this… then next 💗</button>
 </div>
 
-<script>
-/* ---------- DISABLE RIGHT CLICK ---------- */
-document.addEventListener("contextmenu", e => e.preventDefault());
+<!-- AUDIO -->
+<audio id="audio" src="ishqhai.mp3" preload="auto"></audio>
 
-/* ---------- AUDIO + VISUALIZER ---------- */
+<script>
+/* ELEMENTS */
+const photo = document.getElementById("photo");
+const hint = document.getElementById("hint");
+const nextBtn = document.getElementById("nextBtn");
+const audio = document.getElementById("audio");
 const canvas = document.getElementById("visualizer");
 const ctx = canvas.getContext("2d");
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
 
-const audio = document.getElementById("audio");
-const AudioContext = window.AudioContext || window.webkitAudioContext;
-const audioCtx = new AudioContext();
+/* AUDIO CONTEXT */
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 const source = audioCtx.createMediaElementSource(audio);
 const analyser = audioCtx.createAnalyser();
 
@@ -136,40 +150,45 @@ analyser.fftSize = 256;
 const bufferLength = analyser.frequencyBinCount;
 const dataArray = new Uint8Array(bufferLength);
 
+/* CANVAS SIZE */
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+window.addEventListener("resize", () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
+
 /* DRAW WAVES */
 function draw() {
   requestAnimationFrame(draw);
   analyser.getByteFrequencyData(dataArray);
-
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   const barWidth = (canvas.width / bufferLength) * 2;
   let x = 0;
 
   for (let i = 0; i < bufferLength; i++) {
-    const barHeight = dataArray[i] * 0.75;
+    const barHeight = dataArray[i] * 0.7;
     ctx.fillStyle = `rgba(255, 100, 160, ${barHeight / 255})`;
     ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
     x += barWidth + 1;
   }
 }
 
-/* AUTOPLAY ON FIRST INTERACTION */
-function startAudio() {
+/* CLICK TO START */
+photo.addEventListener("click", () => {
+  photo.classList.add("active");
+  hint.classList.add("hide");
+
   audioCtx.resume();
   audio.play();
   draw();
-  document.removeEventListener("click", startAudio);
-  document.removeEventListener("touchstart", startAudio);
-}
 
-document.addEventListener("click", startAudio);
-document.addEventListener("touchstart", startAudio);
-
-/* RESIZE */
-window.addEventListener("resize", () => {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+  /* SHOW NEXT AFTER 10s */
+  setTimeout(() => {
+    nextBtn.classList.add("show");
+  }, 10000);
 });
 
 /* NEXT */
