@@ -2,131 +2,203 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Things You Don’t See</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Page 10 🤍</title>
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
 
 <style>
+:root {
+  --bg-dark: #0f0f16;
+  --bg-soft: #1b1b2b;
+  --pink: #ff6fae;
+  --text: #f3f3f3;
+}
+
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
 }
 
 body {
-  background: linear-gradient(to bottom, #12121a, #1b1b28);
-  color: #f2f2f2;
+  margin: 0;
   min-height: 100vh;
+  background: linear-gradient(135deg, var(--bg-dark), var(--bg-soft));
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--text);
 }
 
+/* Floating Hearts */
+.heart {
+  position: absolute;
+  bottom: -40px;
+  font-size: 18px;
+  color: rgba(255,111,174,0.35);
+  animation: floatUp linear infinite;
+}
+
+@keyframes floatUp {
+  from {
+    transform: translateY(0) scale(0.8);
+    opacity: 0;
+  }
+  20% { opacity: 1; }
+  to {
+    transform: translateY(-110vh) scale(1.2);
+    opacity: 0;
+  }
+}
+
+/* Container */
 .container {
-  max-width: 720px;
-  margin: 0 auto;
-  padding: 90px 24px 140px;
-}
-
-h1 {
+  position: relative;
+  z-index: 2;
+  max-width: 760px;
   text-align: center;
-  font-size: clamp(1.8rem, 4vw, 2.4rem);
-  margin-bottom: 90px;
-  font-weight: 500;
-  opacity: 0.9;
+  padding: 40px 24px;
 }
 
-.line {
-  font-size: clamp(1.15rem, 3vw, 1.45rem);
+/* Text */
+.typewriter {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.35rem;
   line-height: 1.9;
-  margin-bottom: 70px;
-  opacity: 0;
-  transform: translateY(22px);
-  transition: opacity 1.2s ease, transform 1.2s ease;
+  white-space: pre-line;
+  min-height: 280px;
 }
 
-.line.show {
-  opacity: 1;
-  transform: translateY(0);
+/* Cursor */
+.cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1.2em;
+  background: var(--pink);
+  margin-left: 4px;
+  animation: blink 1s infinite;
 }
 
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+/* Button */
 .next-btn {
-  display: block;
-  margin: 140px auto 0;
+  display: none;
+  margin-top: 40px;
   padding: 14px 46px;
   font-size: 1.05rem;
   border-radius: 50px;
   border: none;
-  background: linear-gradient(135deg, #ff4f8b, #ff85a2);
-  color: white;
+  background: linear-gradient(135deg, var(--pink), #ff9bc7);
+  color: #fff;
   cursor: pointer;
-  transition: all 0.35s ease;
-  box-shadow: 0 12px 30px rgba(255, 79, 139, 0.35);
+  box-shadow: 0 12px 30px rgba(255,111,174,0.35);
+  transition: all 0.3s ease;
 }
 
 .next-btn:hover {
   transform: translateY(-3px) scale(1.05);
-  box-shadow: 0 18px 40px rgba(255, 79, 139, 0.55);
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .typewriter {
+    font-size: 1.15rem;
+    line-height: 1.8;
+  }
 }
 </style>
 </head>
 
 <body>
 
+<!-- HEARTS CONTAINER -->
+<div id="hearts"></div>
+
 <div class="container">
-  <h1>Things you don’t see about yourself</h1>
+  <div class="typewriter" id="text"></div>
+  <span class="cursor" id="cursor"></span>
 
-  <div class="line">
-    You’re actually full of life.<br>
-    Even on days you say you’re tired of everything.
-  </div>
-
-  <div class="line">
-    Haan, sometimes you do make shitty choices.<br>
-    Life decisions ho, Instagram songs ho, ya captions.
-  </div>
-
-  <div class="line">
-    But honestly?<br>
-    That’s also very you.
-  </div>
-
-  <div class="line">
-    At least you don’t pretend to be someone else.<br>
-    At least you don’t fake a personality just to fit in.
-  </div>
-
-  <div class="line">
-    Baddie nahi hai tu.<br>
-    Aur banne ki koshish mat kiya kar.
-  </div>
-
-  <div class="line">
-    And one more thing —<br>
-    you are always capable of taking decisions on your own.
-  </div>
-
-  <div class="line">
-    Please don’t be dependent on anyone<br>
-    for your life decisions.
-  </div>
-
-  <button class="next-btn" onclick="goNext()">I believe in you 🤍</button>
+  <button class="next-btn" id="nextBtn" onclick="goNext()">
+    I see you 🤍
+  </button>
 </div>
 
 <script>
-const lines = document.querySelectorAll(".line");
+/* ---------- HEART GENERATOR ---------- */
+const heartContainer = document.getElementById("hearts");
 
-const observer = new IntersectionObserver(
-  entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("show");
-      }
-    });
-  },
-  { threshold: 0.35 }
-);
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerText = "❤";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.animationDuration = 6 + Math.random() * 4 + "s";
+  heart.style.fontSize = 12 + Math.random() * 18 + "px";
+  heartContainer.appendChild(heart);
 
-lines.forEach(line => observer.observe(line));
+  setTimeout(() => heart.remove(), 10000);
+}
 
+setInterval(createHeart, 700);
+
+/* ---------- TYPEWRITER TEXT ---------- */
+const lines = [
+  "You’re actually full of life.",
+  "",
+  "Even on days you say you’re tired of everything.",
+  "",
+  "Haan, sometimes you do make shitty choices.",
+  "Life decisions ho, Instagram songs ho, ya captions.",
+  "",
+  "But honestly?",
+  "That’s also very you.",
+  "",
+  "At least you don’t pretend to be someone else.",
+  "At least you don’t fake a personality just to fit in.",
+  "",
+  "Baddie nahi hai tu.",
+  "Aur banne ki koshish mat kiya kar.",
+  "",
+  "You are capable of taking decisions on your own.",
+  "Never be dependent on anyone for your life decisions."
+];
+
+const textEl = document.getElementById("text");
+const cursor = document.getElementById("cursor");
+const nextBtn = document.getElementById("nextBtn");
+
+let lineIndex = 0;
+let charIndex = 0;
+const speed = 45;
+const pauseBetweenLines = 700;
+
+function typeText() {
+  if (lineIndex >= lines.length) {
+    cursor.style.display = "none";
+    nextBtn.style.display = "inline-block";
+    return;
+  }
+
+  if (charIndex < lines[lineIndex].length) {
+    textEl.innerHTML += lines[lineIndex].charAt(charIndex);
+    charIndex++;
+    setTimeout(typeText, speed);
+  } else {
+    textEl.innerHTML += "\n";
+    lineIndex++;
+    charIndex = 0;
+    setTimeout(typeText, pauseBetweenLines);
+  }
+}
+
+typeText();
+
+/* ---------- NEXT ---------- */
 function goNext() {
   window.location.href = "page11.html";
 }
