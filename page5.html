@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Our Little Moments</title>
 
-<!-- Cursive Font -->
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 
 <style>
@@ -26,51 +25,48 @@ body {
 }
 
 .container {
-  max-width: 1100px;
+  max-width: 420px;
   padding: 40px 20px;
   text-align: center;
 }
 
-/* INTRO TEXT */
+/* INTRO */
 .intro-text {
-  font-size: clamp(2rem, 5vw, 2.6rem);
+  font-size: 2.2rem;
   line-height: 1.4;
   opacity: 1;
-  transition: opacity 1.8s ease;
+  transition: opacity 1.6s ease;
 }
 
-/* HIDE TEXT */
 .intro-text.fade-out {
   opacity: 0;
 }
 
-/* GALLERY (HIDDEN INITIALLY) */
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 30px;
-  margin: 50px 0;
+/* MEMORY */
+.memory {
+  display: none;
   opacity: 0;
   transform: translateY(20px);
-  transition: opacity 2s ease, transform 2s ease;
+  transition: opacity 1.5s ease, transform 1.5s ease;
 }
 
-.gallery.show {
+.memory.show {
+  display: block;
   opacity: 1;
   transform: translateY(0);
+}
+
+.memory.hide {
+  opacity: 0;
+  transform: translateY(-20px);
 }
 
 /* POLAROID */
 .polaroid {
   background: white;
-  padding: 14px 14px 30px;
+  padding: 14px 14px 28px;
   border-radius: 10px;
   box-shadow: 0 18px 35px rgba(0,0,0,0.15);
-  transition: transform 0.4s ease;
-}
-
-.polaroid:hover {
-  transform: scale(1.05) rotate(-1deg);
 }
 
 /* MEDIA */
@@ -83,7 +79,6 @@ body {
   background: #000;
 }
 
-/* SOFT BACKGROUND */
 .media::before {
   content: "";
   position: absolute;
@@ -93,7 +88,6 @@ body {
   z-index: 0;
 }
 
-/* IMAGE & VIDEO */
 .media img,
 .media video {
   width: 100%;
@@ -111,18 +105,24 @@ body {
   background: rgba(0,0,0,0.45);
   color: white;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   text-align: center;
   padding: 18px;
   font-size: 1rem;
   line-height: 1.7;
+  opacity: 0;
+  transition: opacity 1.4s ease;
+}
+
+.overlay.show {
+  opacity: 1;
 }
 
 /* BUTTON */
 .next-btn {
-  opacity: 0;
-  margin-top: 30px;
+  display: none;
+  margin-top: 40px;
   padding: 14px 44px;
   font-size: 1.05rem;
   border-radius: 50px;
@@ -130,16 +130,11 @@ body {
   background: linear-gradient(135deg, #ff4f8b, #ff85a2);
   color: white;
   cursor: pointer;
-  transition: opacity 1.8s ease, transform 0.35s ease;
   box-shadow: 0 12px 30px rgba(255, 79, 139, 0.35);
 }
 
 .next-btn.show {
-  opacity: 1;
-}
-
-.next-btn:hover {
-  transform: translateY(-3px) scale(1.05);
+  display: inline-block;
 }
 </style>
 </head>
@@ -148,18 +143,17 @@ body {
 
 <div class="container">
 
-  <!-- INTRO TEXT -->
+  <!-- INTRO -->
   <div class="intro-text" id="intro">
     Some moments don’t fade,<br>
     they quietly stay with us 🤍
   </div>
 
-  <!-- GALLERY -->
-  <div class="gallery" id="gallery">
-
+  <!-- MEMORY 1 -->
+  <div class="memory" id="m1">
     <div class="polaroid">
       <div class="media">
-        <img src="luckyeye.jpeg" alt="Lucky Eyes">
+        <img src="luckyeye.jpeg">
         <div class="overlay">
           Main aankhen band karta hoon toh tumhe dekhta hoon...<br>
           aankhen kholta hoon toh tumhe dekhna chahta hoon...<br>
@@ -168,16 +162,23 @@ body {
         </div>
       </div>
     </div>
+  </div>
 
+  <!-- MEMORY 2 -->
+  <div class="memory" id="m2">
     <div class="polaroid">
       <div class="media">
-        <img src="luckymihir.jpg" alt="First Laugh">
+        <img src="luckymihir.jpg">
         <div class="overlay">
-          The first time we met<br>
+          The first time we laughed without knowing<br>
+          this would become a habit 💗
         </div>
       </div>
     </div>
+  </div>
 
+  <!-- MEMORY 3 -->
+  <div class="memory" id="m3">
     <div class="polaroid">
       <div class="media">
         <video src="luckycringe.mp4" autoplay muted loop playsinline></video>
@@ -186,31 +187,55 @@ body {
         </div>
       </div>
     </div>
-
   </div>
 
   <button class="next-btn" id="nextBtn" onclick="goNext()">One more thing… 👀</button>
-
 </div>
 
 <script>
 const intro = document.getElementById("intro");
-const gallery = document.getElementById("gallery");
+const memories = [
+  document.getElementById("m1"),
+  document.getElementById("m2"),
+  document.getElementById("m3")
+];
 const nextBtn = document.getElementById("nextBtn");
 
-/* SEQUENCE */
-setTimeout(() => {
-  intro.classList.add("fade-out");
-}, 2500);
+let current = 0;
+
+/* INTRO SEQUENCE */
+setTimeout(() => intro.classList.add("fade-out"), 2500);
 
 setTimeout(() => {
   intro.style.display = "none";
-  gallery.classList.add("show");
-}, 4300);
+  playMemory(0);
+}, 4200);
 
-setTimeout(() => {
-  nextBtn.classList.add("show");
-}, 6000);
+/* MEMORY PLAYER */
+function playMemory(i) {
+  const mem = memories[i];
+  const text = mem.querySelector(".overlay");
+
+  mem.classList.add("show");
+
+  setTimeout(() => text.classList.add("show"), 1200);
+
+  setTimeout(() => {
+    text.classList.remove("show");
+    mem.classList.add("hide");
+  }, 5200);
+
+  setTimeout(() => {
+    mem.classList.remove("show", "hide");
+    mem.style.display = "none";
+    current++;
+    if (current < memories.length) {
+      playMemory(current);
+    } else {
+      nextBtn.classList.add("show");
+    }
+  }, 7000);
+}
 
 function goNext() {
   window.location.href = "page8.html";
