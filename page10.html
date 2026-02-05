@@ -15,9 +15,7 @@
   --text: #f3f3f3;
 }
 
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
@@ -36,18 +34,13 @@ body {
   bottom: -40px;
   color: rgba(255,111,174,0.35);
   animation: floatUp linear infinite;
+  pointer-events: none;
 }
 
 @keyframes floatUp {
-  from {
-    transform: translateY(0) scale(0.8);
-    opacity: 0;
-  }
+  from { transform: translateY(0) scale(0.8); opacity: 0; }
   20% { opacity: 1; }
-  to {
-    transform: translateY(-110vh) scale(1.2);
-    opacity: 0;
-  }
+  to { transform: translateY(-110vh) scale(1.2); opacity: 0; }
 }
 
 /* Container */
@@ -64,8 +57,8 @@ body {
   font-family: 'Poppins', sans-serif;
   font-size: 1.35rem;
   line-height: 1.9;
-  white-space: pre-line;
-  min-height: 300px;
+  white-space: pre-wrap;
+  min-height: 320px;
 }
 
 /* Cursor */
@@ -120,70 +113,58 @@ body {
 <script>
 /* HEARTS */
 function createHeart() {
-  const heart = document.createElement("div");
-  heart.className = "heart";
-  heart.innerText = "❤";
-  heart.style.left = Math.random() * 100 + "vw";
-  heart.style.fontSize = 12 + Math.random() * 18 + "px";
-  heart.style.animationDuration = 6 + Math.random() * 4 + "s";
-  document.getElementById("hearts").appendChild(heart);
-  setTimeout(() => heart.remove(), 10000);
+  const h = document.createElement("div");
+  h.className = "heart";
+  h.innerText = "❤";
+  h.style.left = Math.random() * 100 + "vw";
+  h.style.fontSize = 12 + Math.random() * 18 + "px";
+  h.style.animationDuration = 6 + Math.random() * 4 + "s";
+  document.getElementById("hearts").appendChild(h);
+  setTimeout(() => h.remove(), 10000);
 }
-setInterval(createHeart, 800);
+setInterval(createHeart, 900);
 
-/* TYPEWRITER (FIXED) */
-const lines = [
-  "You’re actually full of life.",
-  "",
-  "Even on days you say you’re tired of everything.",
-  "",
-  "Haan, sometimes you do make shitty choices.",
-  "Life decisions ho, Instagram songs ho, ya captions.",
-  "",
-  "But honestly?",
-  "That’s also very you.",
-  "",
-  "At least you don’t pretend to be someone else.",
-  "At least you don’t fake a personality just to fit in.",
-  "",
-  "Baddie nahi hai tu.",
-  "Aur banne ki koshish mat kiya kar.",
-  "",
-  "You are capable of taking decisions on your own.",
-  "Never be dependent on anyone for your life decisions."
-];
+/* TYPEWRITER — SAFE METHOD */
+const fullText = `
+You’re actually full of life.
+
+Even on days you say you’re tired of everything.
+
+Haan, sometimes you do make shitty choices.
+Life decisions ho, Instagram songs ho, ya captions.
+
+But honestly?
+That’s also very you.
+
+At least you don’t pretend to be someone else.
+At least you don’t fake a personality just to fit in.
+
+Baddie nahi hai tu.
+Aur banne ki koshish mat kiya kar.
+
+You are capable of taking decisions on your own.
+Never be dependent on anyone for your life decisions.
+`;
 
 const textEl = document.getElementById("text");
 const cursor = document.getElementById("cursor");
 const nextBtn = document.getElementById("nextBtn");
 
-let line = 0;
-let char = 0;
+let index = 0;
 const speed = 45;
-const linePause = 650;
 
-function typeWriter() {
-  if (line >= lines.length) {
+function typeSafe() {
+  if (index < fullText.length) {
+    textEl.textContent += fullText.charAt(index);
+    index++;
+    setTimeout(typeSafe, speed);
+  } else {
     cursor.style.display = "none";
     nextBtn.style.display = "inline-block";
-    return;
-  }
-
-  const currentLine = lines[line];
-
-  if (char < currentLine.length) {
-    textEl.innerHTML += currentLine.charAt(char);
-    char++;
-    setTimeout(typeWriter, speed);
-  } else {
-    textEl.innerHTML += "\n";
-    line++;
-    char = 0;
-    setTimeout(typeWriter, linePause);
   }
 }
 
-typeWriter();
+typeSafe();
 
 /* NEXT */
 function goNext() {
