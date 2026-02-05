@@ -146,7 +146,7 @@ function createHeart() {
 }
 setInterval(createHeart, 800);
 
-/* TYPEWRITER (UNCHANGED LOGIC) */
+/* TYPEWRITER + AUTO SCROLL */
 const stanzas = [
 `The day I don’t speak to you,
 the hours feel heavier,
@@ -188,21 +188,31 @@ let charIndex = 0;
 const speed = 45;
 const pauseBetweenStanzas = 900;
 
+function autoScroll() {
+  window.scrollTo({
+    top: document.body.scrollHeight,
+    behavior: "smooth"
+  });
+}
+
 function typeStanza() {
   if (stanzaIndex >= stanzas.length) {
     cursor.style.display = "none";
     nextBtn.style.display = "inline-block";
+    autoScroll();
     return;
   }
 
   if (charIndex < stanzas[stanzaIndex].length) {
     textEl.innerHTML += stanzas[stanzaIndex].charAt(charIndex);
     charIndex++;
+    autoScroll();
     setTimeout(typeStanza, speed);
   } else {
     textEl.innerHTML += "\n\n";
     stanzaIndex++;
     charIndex = 0;
+    autoScroll();
     setTimeout(typeStanza, pauseBetweenStanzas);
   }
 }
@@ -213,6 +223,7 @@ function goNext() {
   window.location.href = "page10.html";
 }
 </script>
+
 
 </body>
 </html>
