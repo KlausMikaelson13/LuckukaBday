@@ -22,16 +22,10 @@ body {
   margin: 0;
   min-height: 100vh;
   background:
-    linear-gradient(
-      rgba(0,0,0,0.45),
-      rgba(0,0,0,0.45)
-    ),
-    linear-gradient(135deg, #ff9bc7, #6a5acd); /* fallback soft love bg */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 30px;
-  overflow: hidden;
+    linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+    linear-gradient(135deg, #ff9bc7, #6a5acd);
+  color: var(--text-main);
+  overflow-y: auto;              /* ✅ allow scroll */
 }
 
 /* LOVE HEARTS */
@@ -45,15 +39,9 @@ body {
 }
 
 @keyframes floatUp {
-  from {
-    transform: translateY(0) scale(0.8);
-    opacity: 0;
-  }
+  from { transform: translateY(0) scale(0.8); opacity: 0; }
   20% { opacity: 1; }
-  to {
-    transform: translateY(-110vh) scale(1.2);
-    opacity: 0;
-  }
+  to { transform: translateY(-110vh) scale(1.2); opacity: 0; }
 }
 
 /* Container */
@@ -61,13 +49,14 @@ body {
   position: relative;
   z-index: 2;
   max-width: 820px;
+  margin: 0 auto;
+  padding: 80px 30px 120px;   /* bottom padding so button is reachable */
   text-align: center;
 }
 
 /* Typewriter Text */
 .typewriter {
   font-family: 'Pacifico', cursive;
-  color: var(--text-main);
   font-size: 1.45rem;
   line-height: 2;
   white-space: pre-line;
@@ -93,7 +82,7 @@ body {
 /* Button */
 .next-btn {
   display: none;
-  margin-top: 30px;
+  margin: 50px auto 0;
   padding: 14px 42px;
   font-size: 1.1rem;
   border: none;
@@ -122,7 +111,7 @@ body {
 
 <body>
 
-<!-- HEARTS CONTAINER -->
+<!-- HEARTS -->
 <div id="hearts"></div>
 
 <div class="container">
@@ -146,7 +135,7 @@ function createHeart() {
 }
 setInterval(createHeart, 800);
 
-/* TYPEWRITER + AUTO SCROLL */
+/* TYPEWRITER */
 const stanzas = [
 `The day I don’t speak to you,
 the hours feel heavier,
@@ -188,31 +177,21 @@ let charIndex = 0;
 const speed = 45;
 const pauseBetweenStanzas = 900;
 
-function autoScroll() {
-  window.scrollTo({
-    top: document.body.scrollHeight,
-    behavior: "smooth"
-  });
-}
-
 function typeStanza() {
   if (stanzaIndex >= stanzas.length) {
     cursor.style.display = "none";
-    nextBtn.style.display = "inline-block";
-    autoScroll();
+    nextBtn.style.display = "block";
     return;
   }
 
   if (charIndex < stanzas[stanzaIndex].length) {
     textEl.innerHTML += stanzas[stanzaIndex].charAt(charIndex);
     charIndex++;
-    autoScroll();
     setTimeout(typeStanza, speed);
   } else {
     textEl.innerHTML += "\n\n";
     stanzaIndex++;
     charIndex = 0;
-    autoScroll();
     setTimeout(typeStanza, pauseBetweenStanzas);
   }
 }
@@ -223,7 +202,6 @@ function goNext() {
   window.location.href = "page10.html";
 }
 </script>
-
 
 </body>
 </html>
